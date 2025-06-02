@@ -97,7 +97,7 @@
                     android:layout_height="wrap_content"
                     android:text="View and manage all classes attendance records."
                     android:textSize="14sp"
-                    android:textColor="#7A7A7A" />
+                    android:textColor="#7A7A7A"/>
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -153,6 +153,7 @@
             </LinearLayout>
 
         </LinearLayout>
+
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
