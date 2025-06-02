@@ -13,7 +13,7 @@
         android:theme="@style/Theme.SchoolAttendance"
         tools:targetApi="31">
         <activity
-            android:name=".MyClasses.MyClasses"
+            android:name=".MyClasses.MyClassesActivity"
             android:exported="false" />
         <activity
             android:name=".teacherhomepage.TeacherHomepageActivity"
