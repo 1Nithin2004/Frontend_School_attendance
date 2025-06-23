@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:padding="16dp">
+
+    <
+
+    <!-- Mark Attendance Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardMarkAttendance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        card_view:cardCornerRadius="16dp"
+        card_view:cardElevation="4dp"
+        android:background="#EAF1FF">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/frame__2_"
+                android:id="@+id/belowatte"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:text="Today"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="4dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="4dp"/>
+
+            <TextView
+                android:layout_below="@id/belowatte"
+                android:layout_marginTop="12dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mark Attendance"
+                android:textSize="18sp"
+                android:id="@+id/belowmark"
+                android:textStyle="bold"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_below="@id/belowmark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Record today's class attendance"
+                android:textSize="14sp"
+                android:textColor="#666" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- View Reports Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewReports"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        card_view:cardCornerRadius="16dp"
+        card_view:cardElevation="4dp"
+        android:background="#E9FBF1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/frame__1_"
+                android:id="@+id/report"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:text="Analytics"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="18sp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="4dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="4dp"/>
+
+            <TextView
+                android:layout_marginTop="12dp"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="View Reports"
+                android:textSize="20sp"
+                android:layout_below="@+id/report"
+                android:id="@+id/belowreport"
+                android:textStyle="bold"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/belowreport"
+                android:text="Check attendance statistics"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
