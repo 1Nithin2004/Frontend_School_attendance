@@ -5,10 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/main"
     android:background="#FFFFFF"
     android:padding="16dp">
 
-    <
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/headerContainer"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/frame"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:id="@+id/classNametextview"
+            android:textColor="#000000"
+            android:text="My Classes"
+            />
+
+    </RelativeLayout>
+
 
     <!-- Mark Attendance Card -->
     <androidx.cardview.widget.CardView
@@ -16,6 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="10dp"
         card_view:cardCornerRadius="16dp"
         card_view:cardElevation="4dp"
         android:background="#EAF1FF">
@@ -70,6 +97,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="10dp"
         card_view:cardCornerRadius="16dp"
         card_view:cardElevation="4dp"
         android:background="#E9FBF1">

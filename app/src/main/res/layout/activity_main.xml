@@ -78,6 +78,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:hint="Username"
+                    android:id="@+id/accessibilitycustomaction5"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:background="@drawable/style_editext_rounded_corner"
@@ -104,6 +105,7 @@
                     android:layout_width="match_parent"
                     android:background="@drawable/style_editext_rounded_corner"
                     android:layout_height="wrap_content"
+                    android:id="@+id/accessibilitycustomaction6"
                     android:hint="Password"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
@@ -123,6 +125,20 @@
                 android:backgroundTint="#FFFFFF"
                 android:layout_marginTop="30dp" />
 
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:indeterminateTint="@android:color/holo_blue_light"
+                app:indicatorSize="100dp"
+                android:visibility="gone"
+                android:layout_marginTop="30dp"
+                app:trackThickness="8dp"
+                android:layout_gravity="center" />
+
         </LinearLayout>
+
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
