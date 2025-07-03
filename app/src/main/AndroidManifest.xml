@@ -23,6 +23,10 @@
 
         </activity>
         <activity
+        android:name=".myclasses.AttendanceTick"
+        android:exported="true" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

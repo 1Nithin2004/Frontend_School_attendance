@@ -23,6 +23,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val isLoggedIn = getSharedPreferences("MyPrefs", MODE_PRIVATE).getBoolean("isLoggedIn", false)
+        if (isLoggedIn) {
+            startActivity(Intent(this, TeacherHomepageActivity::class.java))
+            finish()
+            return
+        }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->

@@ -1,5 +1,6 @@
 package com.saveetha.schoolattendance.myclasses
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -17,7 +18,7 @@ class MarkorReportActivity: AppCompatActivity() {
         setContentView(binding.root)
 
         val receivedClassName = intent.getStringExtra("class_name") ?: "No class"
-        binding.classNametextview.text = receivedClassName
+        binding.classNametextview.text = "Class "+receivedClassName
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
             enableEdgeToEdge()
@@ -31,6 +32,11 @@ class MarkorReportActivity: AppCompatActivity() {
                 )
                 WindowInsetsCompat.CONSUMED
             }
+        }
+        binding.clickbutton.setOnClickListener{
+            val intent = Intent(this, AttendanceTick::class.java)
+            intent.putExtra("class",receivedClassName )
+            startActivity(intent)
         }
     }
 }

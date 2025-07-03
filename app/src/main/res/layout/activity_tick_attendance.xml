@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Toolbar with Centered Title -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#FFFFFF"
+        android:elevation="4dp"
+        app:navigationIcon="@drawable/frame">
+
+        <TextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Mark Attendance"
+            android:gravity="center"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:maxLines="1" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- Content Area -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- Scrollable Table -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TableLayout
+                android:id="@+id/tableLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                android:padding="24dp">
+
+                <TableRow android:background="#CCCCCC" android:padding="8dp">
+                    <TextView android:text="S.No" android:textStyle="bold"/>
+                    <TextView android:text="Name" android:textStyle="bold"/>
+                    <TextView android:text="Present" android:textStyle="bold"/>
+                    <TextView android:text="Absent" android:textStyle="bold"/>
+                </TableRow>
+
+            </TableLayout>
+
+        </ScrollView>
+
+        <!-- Submit Button -->
+        <Button
+            android:id="@+id/submitAttendanceBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Submit Attendance"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:backgroundTint="#4CAF50"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="24dp" />
+    </LinearLayout>
+</LinearLayout>

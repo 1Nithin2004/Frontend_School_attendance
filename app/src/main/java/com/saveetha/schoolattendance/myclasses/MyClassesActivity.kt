@@ -53,7 +53,7 @@ class MyClassesActivity : AppCompatActivity() {
                     adapter.setupclicklistener(object :ClassesAdapter.ClickListener{
                         override fun click(data: MyClasses) {
                             val intent = Intent(this@MyClassesActivity, MarkorReportActivity::class.java)
-                            intent.putExtra("class_name","Class "+data.class_name)
+                            intent.putExtra("class_name",data.class_name)
                             startActivity(intent)
                         }
 
