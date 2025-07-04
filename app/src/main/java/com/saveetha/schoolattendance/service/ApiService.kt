@@ -1,5 +1,6 @@
 package com.saveetha.schoolattendance.service
 
+import com.saveetha.schoolattendance.myclasses.AttendanceTick
 import com.saveetha.schoolattendance.myclasses.MyClasses
 import com.saveetha.schoolattendance.service.request.LoginRequest
 import com.saveetha.schoolattendance.service.response.LoginResponse
@@ -22,4 +23,7 @@ interface ApiService {
 
     @GET("users/class/{class_id}")
     fun getStudentsIntoClass(@Path("class_id") classId:String): Call<List<Users>>
+
+    @POST("attendance/mark")
+    fun attendancemarking(@Body data: Map<String, String>): Call<AttendanceTick>
 }

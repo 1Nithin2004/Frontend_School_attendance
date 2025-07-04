@@ -2,12 +2,15 @@ package com.saveetha.schoolattendance.myclasses
 
 import android.os.Bundle
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.saveetha.schoolattendance.R
 import com.saveetha.schoolattendance.databinding.ActivityTickAttendanceBinding
 import com.saveetha.schoolattendance.service.RetroFit
 import com.saveetha.schoolattendance.service.response.Users
@@ -30,8 +33,55 @@ class AttendanceTick : AppCompatActivity() {
         tableLayout = binding.tableLayout
 
         val classId = intent.getStringExtra("class").toString()
+        binding.submitAttendanceBtn.setOnClickListener {
+            showSubmitDialog()
+        }
 
         getStudents(classId)
+    }
+    private fun showSubmitDialog() {
+        val dialogView = layoutInflater.inflate(R.layout.dialog_submit_attendance, null)
+        val dialogBuilder = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+
+        val alertDialog = dialogBuilder.create()
+        alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        alertDialog.show()
+
+        val yesBtn = dialogView.findViewById<Button>(R.id.btnYes)
+        val noBtn = dialogView.findViewById<Button>(R.id.btnNo)
+
+        yesBtn.setOnClickListener {
+            // Your submit logic here
+        }
+
+        noBtn.setOnClickListener {
+            alertDialog.dismiss()
+        }
+    }
+
+    private fun attendancemarking(studentId: String, teacherId: String, classId: String, status: String) {
+        val requestMap = mapOf(
+            "studentId" to studentId,
+            "teacherId" to teacherId,
+            "classId" to classId,
+            "status" to status
+        )
+
+        RetroFit.getService().attendancemarking(requestMap).enqueue(object : Callback<AttendanceTick> {
+            override fun onResponse(call: Call<AttendanceTick>, response: Response<AttendanceTick>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(this@AttendanceTick, "Attendance submitted!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@AttendanceTick, "Submission failed: ${response.code()}", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<AttendanceTick>, t: Throwable) {
+                Toast.makeText(this@AttendanceTick, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun getStudents(classId:String) {
