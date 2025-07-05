@@ -4,6 +4,7 @@ import com.saveetha.schoolattendance.myclasses.AttendanceTick
 import com.saveetha.schoolattendance.myclasses.MyClasses
 import com.saveetha.schoolattendance.service.request.LoginRequest
 import com.saveetha.schoolattendance.service.response.LoginResponse
+import com.saveetha.schoolattendance.service.response.ReportResponse
 import com.saveetha.schoolattendance.service.response.Users
 import org.json.JSONObject
 import retrofit2.Call
@@ -25,5 +26,8 @@ interface ApiService {
     fun getStudentsIntoClass(@Path("class_id") classId:String): Call<List<Users>>
 
     @POST("attendance/mark")
-    fun attendancemarking(@Body data: Map<String, String>): Call<AttendanceTick>
+    fun attendancemarking(@Body data: Map<String, String>): Call<Map<String, String>>
+
+    @GET("attendance/report/{classId}")
+    fun getClassReport(@Path("classId") classId: String): Call<List<ReportResponse>>
 }

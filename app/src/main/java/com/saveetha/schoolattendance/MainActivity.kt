@@ -1,6 +1,8 @@
 package com.saveetha.schoolattendance
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -20,6 +22,10 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
+
+    private lateinit var sf:SharedPreferences
+    private lateinit var edit:SharedPreferences.Editor
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -37,6 +43,22 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        sf = getSharedPreferences("login", Context.MODE_PRIVATE)
+
+        if(sf.getInt("user_id", 0)!=0) {
+            val userType = sf.getString("user_type", null).toString()
+            if(userType=="Teacher") {
+                val Teacherhomepage = Intent(this@MainActivity,TeacherHomepageActivity::class.java)
+                startActivity(Teacherhomepage)
+            } else if(userType=="Parent") {
+
+            } else {
+
+            }
+            return
+        }
+
+        edit = sf.edit()
         binding.loginbutton.setOnClickListener {
             val username = binding.accessibilitycustomaction5.text.toString().trim()
             val password = binding.accessibilitycustomaction6.text.toString().trim()
@@ -66,6 +88,8 @@ class MainActivity : AppCompatActivity() {
                         binding.progressBar.visibility = View.GONE
                         if(response.isSuccessful) {
                             Toast.makeText(this@MainActivity, response.body()!!.message, Toast.LENGTH_SHORT).show()
+                            edit.putInt("user_id", response.body()!!.user.Id).apply()
+                            edit.putString("user_type", response.body()!!.user.User_type).apply()
                             if(response.body()!!.user.User_type=="Teacher") {
                                 val Teacherhomepage = Intent(this@MainActivity,TeacherHomepageActivity::class.java)
                                 startActivity(Teacherhomepage)

@@ -49,9 +49,10 @@ class TeacherHomepageActivity : AppCompatActivity() {
 
         builder.setPositiveButton("Yes") { _, _ ->
             // Navigate to LoginActivity
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
+//            val intent = Intent(this, MainActivity::class.java)
+//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//            startActivity(intent)
+            finish()
             Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
         }
 

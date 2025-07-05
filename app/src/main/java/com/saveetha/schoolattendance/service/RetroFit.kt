@@ -4,6 +4,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import com.saveetha.schoolattendance.service.response.ReportResponse
 
     object RetroFit{
         private const val BASE_URL = "https://grlp1vvl-3000.inc1.devtunnels.ms/"

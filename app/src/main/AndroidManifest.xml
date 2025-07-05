@@ -38,6 +38,10 @@
      <activity
          android:name=".myclasses.MarkorReportActivity"
          android:exported="true" />
+
+        <activity android:name=".myclasses.StudentReportActivity"
+            android:exported="true"/>
+
     </application>
 
 </manifest>

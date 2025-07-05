@@ -38,5 +38,10 @@ class MarkorReportActivity: AppCompatActivity() {
             intent.putExtra("class",receivedClassName )
             startActivity(intent)
         }
+        binding.clickreport.setOnClickListener {
+            val intent = Intent(this, StudentReportActivity::class.java)
+            intent.putExtra("classId", receivedClassName) // send the class name/id
+            startActivity(intent)
+        }
     }
 }
