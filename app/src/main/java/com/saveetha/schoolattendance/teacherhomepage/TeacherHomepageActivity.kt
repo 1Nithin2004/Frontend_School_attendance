@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.saveetha.schoolattendance.MainActivity
 import com.saveetha.schoolattendance.databinding.ActivityTeacherHomepageBinding
 import com.saveetha.schoolattendance.myclasses.MyClassesActivity
+import com.saveetha.schoolattendance.myclasses.TimetableActivity
 
 //import com.saveetha.schoolattendance.myclasses.MyClassesActivity
 
@@ -40,6 +41,11 @@ class TeacherHomepageActivity : AppCompatActivity() {
         binding.attendanceCard.setOnClickListener {
             val intent = Intent(this, MyClassesActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.scheduleCard.setOnClickListener {
+            val inten = Intent(this@TeacherHomepageActivity, TimetableActivity::class.java)
+            startActivity(inten)
         }
     }
     private fun showLogoutDialog() {
