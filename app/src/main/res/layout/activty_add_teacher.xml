@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F7FA"
+    android:padding="16dp">
+
+    <!-- Back Arrow and Title Row -->
+    <LinearLayout
+        android:id="@+id/headerRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:id="@+id/backArrow"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/frame"
+            android:layout_marginEnd="16dp" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Teacher"
+            android:layout_centerHorizontal="true"
+            android:textColor="#000000"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Full Name -->
+    <EditText
+        android:id="@+id/etFullName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter full name"
+        android:background="#E0E0E0"
+        android:layout_below="@id/headerRow"
+        android:layout_marginTop="24dp"
+        android:padding="12dp" />
+
+    <!-- Teacher ID -->
+    <EditText
+        android:id="@+id/etTeacherId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter teacher ID"
+        android:background="#E0E0E0"
+        android:layout_below="@id/etFullName"
+        android:layout_marginTop="12dp"
+        android:padding="12dp" />
+
+    <!-- Email -->
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter email address"
+        android:inputType="textEmailAddress"
+        android:background="#E0E0E0"
+        android:layout_below="@id/etTeacherId"
+        android:layout_marginTop="12dp"
+        android:padding="12dp" />
+
+    <!-- Phone -->
+    <EditText
+        android:id="@+id/etPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter phone number"
+        android:inputType="phone"
+        android:background="#E0E0E0"
+        android:layout_below="@id/etEmail"
+        android:layout_marginTop="12dp"
+        android:padding="12dp" />
+
+    <!-- Password -->
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter password"
+        android:inputType="textPassword"
+        android:background="#E0E0E0"
+        android:layout_below="@id/etPhone"
+        android:layout_marginTop="12dp"
+        android:padding="12dp" />
+
+    <!-- Confirm Password -->
+    <EditText
+        android:id="@+id/etConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Confirm password"
+        android:inputType="textPassword"
+        android:background="#E0E0E0"
+        android:layout_below="@id/etPassword"
+        android:layout_marginTop="12dp"
+        android:padding="12dp" />
+
+    <!-- Assigned Classes Label -->
+    <TextView
+        android:id="@+id/tvAssignedClassLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Assigned Class"
+        android:textStyle="bold"
+        android:layout_below="@id/etConfirmPassword"
+        android:layout_marginTop="16dp" />
+
+    <!-- Spinner for Assigned Class -->
+    <Spinner
+        android:id="@+id/spinnerAssignedClass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvAssignedClassLabel"
+        android:layout_marginTop="8dp"
+        android:background="#E0E0E0"
+        android:padding="8dp" />
+
+    <!-- Save Button -->
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Teacher Account"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#4CAF50"
+        android:layout_below="@id/spinnerAssignedClass"
+        android:layout_marginTop="32dp"
+        android:padding="12dp" />
+</RelativeLayout>

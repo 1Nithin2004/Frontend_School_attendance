@@ -41,8 +41,10 @@
 
         <activity android:name=".myclasses.StudentReportActivity"
             android:exported="true"/>
-        <activity android:name=".myclasses.TimetableActivity"
-            android:exported="true"/>
+        <activity
+            android:name=".myclasses.TeacherProfile"
+            android:exported="true" />
+
 
     </application>
 

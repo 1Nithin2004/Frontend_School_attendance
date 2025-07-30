@@ -1,6 +1,5 @@
 package com.saveetha.schoolattendance.myclasses
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +8,7 @@ import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
-class TeacherProfile : AppCompatActivity() {
+class ParentProfile : AppCompatActivity() {
 
     private lateinit var tvName: TextView
     private lateinit var tvPhone: TextView
@@ -39,7 +38,7 @@ class TeacherProfile : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        onBackPressed() // or use explicit intent if needed
+        onBackPressed()
         return true
     }
 

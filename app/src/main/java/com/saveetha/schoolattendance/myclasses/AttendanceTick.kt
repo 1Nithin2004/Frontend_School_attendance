@@ -163,7 +163,6 @@ class AttendanceTick : AppCompatActivity() {
                 val studentName = studentsList!![index].Full_Name
                 val teacherId = sf.getInt("user_id", 0).toString() // Replace with actual teacherId if dynamic
                 val classId = classId// Replace with actual classId if dynamic
-                Toast.makeText(this, "present student_id - ${studentsList!![index].Id} student name ${studentsList!![index].Full_Name}", Toast.LENGTH_SHORT).show()
                 if (isChecked) absentCheckBox.isChecked = false
                 attendancemarking(studentId, teacherId, classId, "present")
             }
@@ -172,7 +171,6 @@ class AttendanceTick : AppCompatActivity() {
                 val studentName = studentsList!![index].Full_Name
                 val teacherId = sf.getInt("user_id", 0).toString() // Replace with actual teacherId if dynamic
                 val classId = classId// Replace with actual cl
-                Toast.makeText(this, "absent student_id - ${studentsList!![index].Id} student name ${studentsList!![index].Full_Name}", Toast.LENGTH_SHORT).show()
                 attendancemarking(studentId, teacherId, classId, "absent")
                 if (isChecked) presentCheckBox.isChecked = false
             }

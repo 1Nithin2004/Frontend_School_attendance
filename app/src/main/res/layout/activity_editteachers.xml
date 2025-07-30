@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:padding="16dp">
+
+    <!-- Toolbar with Back Arrow and Title -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp">
+
+        <ImageView
+            android:id="@+id/backArrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/frame"
+            android:textColor="#000000"
+            android:contentDescription="Back" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Teachers"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_centerInParent="true" />
+
+
+    </RelativeLayout>
+
+    <!-- List of Teachers -->
+    <LinearLayout
+        android:id="@+id/teacherList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Repeated block for each teacher -->
+        <!-- You can later use RecyclerView for dynamic data -->
+
+        <!-- Item Start -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Mr. Ram Kumar"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#000000" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/edit"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="Edit" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/delete"
+                android:contentDescription="Delete" />
+        </LinearLayout>
+        <View android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0"/>
+        <!-- Item End -->
+
+        <!-- Copy the block above and change teacher name accordingly -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Ms. Sita Mehta"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#000000"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/edit"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="Edit" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/delete"
+                android:contentDescription="Delete" />
+        </LinearLayout>
+        <View android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0"/>
+
+        <!-- Repeat for remaining names -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Mr. Rohit"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#000000"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/edit"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="Edit" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/delete"
+                android:contentDescription="Delete" />
+        </LinearLayout>
+        <View android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0"/>
+
+        <!-- Mrs. Anjali -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Mrs. Anjali"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#000000"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/edit"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="Edit" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/delete"
+                android:contentDescription="Delete" />
+        </LinearLayout>
+        <View android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0"/>
+
+        <!-- Mr. Venakt -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Mr. Venakt"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#000000"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/edit"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="Edit" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/delete"
+                android:contentDescription="Delete" />
+        </LinearLayout>
+        <View android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0"/>
+
+        <!-- Mr. Shasank -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Mr. Shasank"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#000000"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/edit"
+                android:layout_marginEnd="16dp"
+                android:contentDescription="Edit" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/delete"
+                android:contentDescription="Delete" />
+        </LinearLayout>
+        <View android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#E0E0E0"/>
+    </LinearLayout>
+</LinearLayout>

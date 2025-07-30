@@ -14,6 +14,7 @@ import com.saveetha.schoolattendance.databinding.ActivityMainBinding
 import com.saveetha.schoolattendance.service.RetroFit
 import com.saveetha.schoolattendance.service.request.LoginRequest
 import com.saveetha.schoolattendance.service.response.LoginResponse
+import com.saveetha.schoolattendance.teacherhomepage.ParentHomepageActivity
 import com.saveetha.schoolattendance.teacherhomepage.TeacherHomepageActivity
 import org.json.JSONObject
 import retrofit2.Call
@@ -29,12 +30,38 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val isLoggedIn = getSharedPreferences("MyPrefs", MODE_PRIVATE).getBoolean("isLoggedIn", false)
+
+        // Check if already logged in. This block is for initial launch.
+        // It should also pass user type and ID if already logged in.
+        val isLoggedIn = getSharedPreferences("login", Context.MODE_PRIVATE).getInt("user_id", 0) != 0
         if (isLoggedIn) {
-            startActivity(Intent(this, TeacherHomepageActivity::class.java))
-            finish()
+            val userType = getSharedPreferences("login", Context.MODE_PRIVATE).getString("user_type", null)
+            val userId = getSharedPreferences("login", Context.MODE_PRIVATE).getInt("user_id", 0)
+            val username = getSharedPreferences("login", Context.MODE_PRIVATE).getString("username", null) // Assuming you store username in SharedPreferences now
+
+            if (userType == "Teacher") {
+                val teacherHomepageIntent = Intent(this, TeacherHomepageActivity::class.java).apply {
+                    putExtra("USERNAME", username)
+                    putExtra("TEACHER_ID", userId)
+                }
+                startActivity(teacherHomepageIntent)
+                finish()
+            } else if (userType == "Parent") {
+                val parentHomepageIntent = Intent(this, ParentHomepageActivity::class.java).apply {
+                    putExtra("USERNAME", username)
+                    putExtra("PARENT_ID", userId)
+                }
+                startActivity(parentHomepageIntent)
+                finish()
+            } else {
+                // Handle unknown user type if present in SharedPreferences
+                Toast.makeText(this, "Unknown user type stored. Please log in again.", Toast.LENGTH_LONG).show()
+                // Optionally clear prefs here if you want to force re-login
+                // getSharedPreferences("login", Context.MODE_PRIVATE).edit().clear().apply()
+            }
             return
         }
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
@@ -44,7 +71,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         sf = getSharedPreferences("login", Context.MODE_PRIVATE)
+        edit = sf.edit() // Initialize editor here, as it's used later
 
+        // No need for this block if the 'isLoggedIn' check at the top handles it.
+        // This 'if (sf.getInt("user_id", 0)!=0)' duplicates the initial check.
+        // I'm commenting it out, assuming the first 'if (isLoggedIn)' block is sufficient.
+        /*
         if(sf.getInt("user_id", 0)!=0) {
             val userType = sf.getString("user_type", null).toString()
             if(userType=="Teacher") {
@@ -57,8 +89,8 @@ class MainActivity : AppCompatActivity() {
             }
             return
         }
+        */
 
-        edit = sf.edit()
         binding.loginbutton.setOnClickListener {
             val username = binding.accessibilitycustomaction5.text.toString().trim()
             val password = binding.accessibilitycustomaction6.text.toString().trim()
@@ -88,15 +120,35 @@ class MainActivity : AppCompatActivity() {
                         binding.progressBar.visibility = View.GONE
                         if(response.isSuccessful) {
                             Toast.makeText(this@MainActivity, response.body()!!.message, Toast.LENGTH_SHORT).show()
-                            edit.putInt("user_id", response.body()!!.user.Id).apply()
-                            edit.putString("user_type", response.body()!!.user.User_type).apply()
-                            if(response.body()!!.user.User_type=="Teacher") {
-                                val Teacherhomepage = Intent(this@MainActivity,TeacherHomepageActivity::class.java)
-                                startActivity(Teacherhomepage)
-                            } else if(response.body()!!.user.User_type=="Parent") {
 
+                            // Store all relevant user data in SharedPreferences
+                            val userId = response.body()!!.user.Id
+                            val userType = response.body()!!.user.User_type
+//                            val userNameFromResponse = response.body()!!.user.username // Assuming this field exists in your LoginResponse.User
+                            // You might also want to store other common fields if they exist and are useful
+                            // val userEmail = response.body()!!.user.email // if different from username
+                            val userFullName = response.body()!!.user.Full_Name
+
+                            edit.putInt("user_id", userId).apply()
+                            edit.putString("user_type", userType).apply()
+                            edit.putString("username", username).apply()
+
+                            if (userType == "Teacher") {
+                                val teacherHomepageIntent = Intent(this@MainActivity, TeacherHomepageActivity::class.java).apply {
+                                    putExtra("USERNAME", username)
+                                }
+                                startActivity(teacherHomepageIntent)
+                                finish()
+                            }else if(userType=="Parent") {
+                                val ParentHomepage = Intent(this@MainActivity, ParentHomepageActivity::class.java).apply {
+//                                    putExtra("USERNAME", userNameFromResponse)
+                                    putExtra("PARENT_ID", username) // Pass the ID as PARENT_ID
+                                }
+                                startActivity(ParentHomepage)
+                                finish() // Close MainActivity after successful login
                             } else {
-
+                                // Handle unknown user types
+                                Toast.makeText(this@MainActivity, "Unknown user type: $userType. Please contact support.", Toast.LENGTH_LONG).show()
                             }
                         } else {
                             try {
@@ -108,7 +160,6 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
 
-
                     override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                         binding.loginbutton.visibility = View.VISIBLE
                         binding.progressBar.visibility = View.GONE
@@ -118,6 +169,5 @@ class MainActivity : AppCompatActivity() {
                 })
             }
         }
-
     }
 }

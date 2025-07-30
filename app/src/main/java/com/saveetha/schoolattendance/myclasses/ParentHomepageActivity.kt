@@ -1,10 +1,8 @@
 package com.saveetha.schoolattendance.teacherhomepage
 
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -12,22 +10,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.saveetha.schoolattendance.MainActivity
-import com.saveetha.schoolattendance.R
-import com.saveetha.schoolattendance.databinding.ActivityTeacherHomepageBinding
-import com.saveetha.schoolattendance.databinding.ActivityTeacherProfileBinding
+import com.saveetha.schoolattendance.databinding.ActivityParentHomepageBinding
+import com.saveetha.schoolattendance.databinding.ActivityParentProfileBinding
 import com.saveetha.schoolattendance.myclasses.MyClassesActivity
-import com.saveetha.schoolattendance.myclasses.TeacherProfile
+import com.saveetha.schoolattendance.myclasses.ParentProfile
 
 //import com.saveetha.schoolattendance.myclasses.MyClassesActivity
 
-class TeacherHomepageActivity : AppCompatActivity() {
+class ParentHomepageActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityTeacherHomepageBinding
+    private lateinit var binding: ActivityParentHomepageBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityTeacherHomepageBinding.inflate(layoutInflater)
+        binding = ActivityParentHomepageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val teacherId = intent.getStringExtra("TEACHER_ID")
@@ -50,17 +47,11 @@ class TeacherHomepageActivity : AppCompatActivity() {
         }
 
         binding.profileIcon.setOnClickListener {
-            val teacherId = intent.getStringExtra("TEACHER_ID")
-            val intent = Intent(this, TeacherProfile::class.java)
+            val parentId = intent.getStringExtra("PARENT_ID")
+            val intent = Intent(this, ParentProfile::class.java)
             intent.putExtra("TEACHER_ID", teacherId)
             startActivity(intent)
         }
-        val prefs = getSharedPreferences("login", Context.MODE_PRIVATE)
-        val email = prefs.getString("username", "Not available")
-
-// Example: Show email in a TextView
-//        findViewById<TextView>(R.id.profileEmailTextView).text = "Email: $email"
-
 
 
     }

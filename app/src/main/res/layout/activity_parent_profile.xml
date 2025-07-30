@@ -64,7 +64,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Name"
+                        android:text="Student Name"
                         android:textStyle="bold" />
 
                     <TextView
@@ -94,7 +94,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Phone Number"
+                        android:text="Parent Name"
                         android:textStyle="bold" />
 
                     <TextView
@@ -124,7 +124,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Email Address"
+                        android:text="Class"
                         android:textStyle="bold" />
 
                     <TextView
@@ -154,7 +154,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Date of Birth"
+                        android:text="Phone Number"
                         android:textStyle="bold" />
 
                     <TextView
@@ -166,10 +166,11 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Classes Allotted Card -->
+            <!-- Date of Birth Card -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
                 android:background="@android:color/white"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="2dp">
@@ -183,11 +184,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Classes Allotted"
+                        android:text="Email Address"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvClasses"
+                        android:id="@+id/tvDo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#000000"
