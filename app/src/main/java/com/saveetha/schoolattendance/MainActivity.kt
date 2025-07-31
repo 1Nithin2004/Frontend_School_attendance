@@ -11,10 +11,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.saveetha.schoolattendance.databinding.ActivityMainBinding
+import com.saveetha.schoolattendance.myclasses.AdminHomeActivity
 import com.saveetha.schoolattendance.service.RetroFit
 import com.saveetha.schoolattendance.service.request.LoginRequest
 import com.saveetha.schoolattendance.service.response.LoginResponse
-import com.saveetha.schoolattendance.teacherhomepage.ParentHomepageActivity
+import com.saveetha.schoolattendance.myclasses.ParentHomepageActivity
 import com.saveetha.schoolattendance.teacherhomepage.TeacherHomepageActivity
 import org.json.JSONObject
 import retrofit2.Call
@@ -32,35 +33,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
 
         // Check if already logged in. This block is for initial launch.
-        // It should also pass user type and ID if already logged in.
-        val isLoggedIn = getSharedPreferences("login", Context.MODE_PRIVATE).getInt("user_id", 0) != 0
-        if (isLoggedIn) {
-            val userType = getSharedPreferences("login", Context.MODE_PRIVATE).getString("user_type", null)
-            val userId = getSharedPreferences("login", Context.MODE_PRIVATE).getInt("user_id", 0)
-            val username = getSharedPreferences("login", Context.MODE_PRIVATE).getString("username", null) // Assuming you store username in SharedPreferences now
-
-            if (userType == "Teacher") {
-                val teacherHomepageIntent = Intent(this, TeacherHomepageActivity::class.java).apply {
-                    putExtra("USERNAME", username)
-                    putExtra("TEACHER_ID", userId)
-                }
-                startActivity(teacherHomepageIntent)
-                finish()
-            } else if (userType == "Parent") {
-                val parentHomepageIntent = Intent(this, ParentHomepageActivity::class.java).apply {
-                    putExtra("USERNAME", username)
-                    putExtra("PARENT_ID", userId)
-                }
-                startActivity(parentHomepageIntent)
-                finish()
-            } else {
-                // Handle unknown user type if present in SharedPreferences
-                Toast.makeText(this, "Unknown user type stored. Please log in again.", Toast.LENGTH_LONG).show()
-                // Optionally clear prefs here if you want to force re-login
-                // getSharedPreferences("login", Context.MODE_PRIVATE).edit().clear().apply()
-            }
-            return
-        }
+        // It should also pass user type and ID if already logged in. *
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -142,10 +115,16 @@ class MainActivity : AppCompatActivity() {
                             }else if(userType=="Parent") {
                                 val ParentHomepage = Intent(this@MainActivity, ParentHomepageActivity::class.java).apply {
 //                                    putExtra("USERNAME", userNameFromResponse)
-                                    putExtra("PARENT_ID", username) // Pass the ID as PARENT_ID
+                                    putExtra("PARENT_username", username) // Pass the ID as PARENT_ID
                                 }
                                 startActivity(ParentHomepage)
                                 finish() // Close MainActivity after successful login
+                            } else if (userType == "admin") {
+                                val adminIntent = Intent(this@MainActivity, AdminHomeActivity::class.java).apply {
+                                    putExtra("ADMIN_username", username)
+                                }
+                                startActivity(adminIntent)
+                                finish()
                             } else {
                                 // Handle unknown user types
                                 Toast.makeText(this@MainActivity, "Unknown user type: $userType. Please contact support.", Toast.LENGTH_LONG).show()

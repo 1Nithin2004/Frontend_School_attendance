@@ -153,6 +153,7 @@
 
         <!-- View Class Reports -->
         <LinearLayout
+
             android:layout_width="0dp"
             android:layout_height="140dp"
             android:layout_columnWeight="1"
@@ -167,6 +168,7 @@
                 android:src="@drawable/report" />
 
             <TextView
+                android:id="@+id/viewClassReportsButton"
                 android:layout_marginTop="8dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -1,51 +1,41 @@
 package com.saveetha.schoolattendance.myclasses
 
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.saveetha.schoolattendance.R
+import com.saveetha.schoolattendance.databinding.ActivityParentProfileBinding
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
 
 class ParentProfile : AppCompatActivity() {
 
-    private lateinit var tvName: TextView
-    private lateinit var tvPhone: TextView
-    private lateinit var tvEmail: TextView
-    private lateinit var tvDob: TextView
-    private lateinit var tvClasses: TextView
-    private var teacherId: String? = null
+    private lateinit var binding: ActivityParentProfileBinding
+    private var parentId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_teacher_profile)
+        binding = ActivityParentProfileBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Profile Details"
 
-        tvName = findViewById(R.id.tvName)
-        tvPhone = findViewById(R.id.tvPhone)
-        tvEmail = findViewById(R.id.tvEmail)
-        tvDob = findViewById(R.id.tvDob)
-        tvClasses = findViewById(R.id.tvClasses)
+        parentId = intent.getStringExtra("PARENT_username")
 
-        teacherId = intent.getStringExtra("teacher_id")
+        // Handle back arrow
+        binding.backArrow.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
 
-        if (!teacherId.isNullOrEmpty()) {
-            loadTeacherProfile(teacherId!!)
+        if (!parentId.isNullOrEmpty()) {
+            loadParentProfile(parentId!!)
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
-
-    private fun loadTeacherProfile(id: String) {
+    private fun loadParentProfile(id: String) {
         val client = OkHttpClient()
         val request = Request.Builder()
-            .url("http://your-server.com/api/teacher/$id")
+            .url("http://your-server.com/api/parent/$id") // 🔁 Replace with actual URL
             .build()
 
         client.newCall(request).enqueue(object : Callback {
@@ -58,13 +48,12 @@ class ParentProfile : AppCompatActivity() {
                     val responseData = response.body?.string()
                     try {
                         val obj = JSONObject(responseData)
-
                         runOnUiThread {
-                            tvName.text = "Name: ${obj.getString("full_name")}"
-                            tvPhone.text = "Phone: ${obj.getString("phone_number")}"
-                            tvEmail.text = "Email: ${obj.getString("email_address")}"
-                            tvDob.text = "DOB: ${obj.getString("date_of_birth")}"
-                            tvClasses.text = "Classes: ${obj.getString("class")}"
+                            binding.tvName.text = "Name: ${obj.getString("full_name")}"
+                            binding.tvPhone.text = "Phone: ${obj.getString("phone_number")}"
+                            binding.tvEmail.text = "Email: ${obj.getString("email_address")}"
+                            binding.tvDob.text = "DOB: ${obj.getString("date_of_birth")}"
+                            binding.tvClasses.text = "Child Class: ${obj.getString("class")}" // Adjust key if needed
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()

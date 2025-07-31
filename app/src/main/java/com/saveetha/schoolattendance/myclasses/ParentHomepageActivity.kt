@@ -1,4 +1,5 @@
-package com.saveetha.schoolattendance.teacherhomepage
+package com.saveetha.schoolattendance.myclasses
+
 
 import android.content.Intent
 import android.os.Build
@@ -27,7 +28,7 @@ class ParentHomepageActivity : AppCompatActivity() {
         binding = ActivityParentHomepageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val teacherId = intent.getStringExtra("TEACHER_ID")
+        val parentUsername = intent.getStringExtra("PARENT_username")
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
             enableEdgeToEdge()
@@ -40,16 +41,12 @@ class ParentHomepageActivity : AppCompatActivity() {
         binding.logout.setOnClickListener{
             showLogoutDialog()
         }
-        // ✅ Click listener to navigate to MyClassesActivity
-        binding.attendanceCard.setOnClickListener {
-            val intent = Intent(this, MyClassesActivity::class.java)
-            startActivity(intent)
-        }
+
 
         binding.profileIcon.setOnClickListener {
-            val parentId = intent.getStringExtra("PARENT_ID")
+            val parentUsername = intent.getStringExtra("PARENT_username")
             val intent = Intent(this, ParentProfile::class.java)
-            intent.putExtra("TEACHER_ID", teacherId)
+            intent.putExtra("PARENT_username", parentUsername)
             startActivity(intent)
         }
 
