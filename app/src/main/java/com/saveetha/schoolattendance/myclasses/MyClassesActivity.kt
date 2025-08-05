@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.saveetha.schoolattendance.databinding.ActivityMyClassesBinding
 import com.saveetha.schoolattendance.service.RetroFit
+import com.saveetha.schoolattendance.R
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,6 +22,7 @@ class MyClassesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_my_classes)
         enableEdgeToEdge()
         binding = ActivityMyClassesBinding.inflate(layoutInflater)
         setContentView(binding.root)

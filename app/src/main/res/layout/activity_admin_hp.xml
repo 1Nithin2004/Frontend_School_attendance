@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/admin_home_layout"
+    android:id="@+id/activity_admin_hp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F7FA">
@@ -57,6 +57,7 @@
 
         <!-- Add Teacher -->
         <LinearLayout
+            android:id="@+id/addTeacherCard"
             android:layout_width="0dp"
             android:layout_height="140dp"
             android:layout_columnWeight="1"
@@ -87,7 +88,8 @@
             android:orientation="vertical"
             android:background="@drawable/rounded_white_card"
             android:gravity="center"
-            android:padding="12dp">
+            android:padding="12dp"
+            android:id="@+id/viewTeachersButton">
 
             <ImageView
                 android:layout_width="60dp"
@@ -105,6 +107,7 @@
 
         <!-- Add Student -->
         <LinearLayout
+            android:id="@+id/addStudentCard"
             android:layout_width="0dp"
             android:layout_height="140dp"
             android:layout_columnWeight="1"

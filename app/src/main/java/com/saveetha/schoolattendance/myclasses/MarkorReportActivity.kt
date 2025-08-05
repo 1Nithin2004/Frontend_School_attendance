@@ -4,10 +4,12 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.saveetha.schoolattendance.R
 import com.saveetha.schoolattendance.databinding.ActivitySelectedclassBinding
 
 class MarkorReportActivity : AppCompatActivity() {
@@ -21,6 +23,11 @@ class MarkorReportActivity : AppCompatActivity() {
 
         val receivedClassName = intent.getStringExtra("class_name") ?: "No class"
         binding.classNametextview.text = "Class $receivedClassName"
+
+        val backArrow = findViewById<ImageView>(R.id.backArrow)
+        backArrow.setOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
 
         val userType = intent.getStringExtra("user_type")
 

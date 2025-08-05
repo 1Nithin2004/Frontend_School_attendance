@@ -84,7 +84,7 @@ class MainActivity : AppCompatActivity() {
                 // Proceed with login API call
                 binding.loginbutton.visibility = View.GONE
                 binding.progressBar.visibility = View.VISIBLE
-                RetroFit.getService().login(LoginRequest(email_address = username, password = password)).enqueue(object:Callback<LoginResponse> {
+                RetroFit.getService().login(LoginRequest(email= username, password = password)).enqueue(object:Callback<LoginResponse> {
                     override fun onResponse(
                         call: Call<LoginResponse>,
                         response: Response<LoginResponse>
@@ -124,7 +124,6 @@ class MainActivity : AppCompatActivity() {
                                     putExtra("ADMIN_username", username)
                                 }
                                 startActivity(adminIntent)
-                                finish()
                             } else {
                                 // Handle unknown user types
                                 Toast.makeText(this@MainActivity, "Unknown user type: $userType. Please contact support.", Toast.LENGTH_LONG).show()

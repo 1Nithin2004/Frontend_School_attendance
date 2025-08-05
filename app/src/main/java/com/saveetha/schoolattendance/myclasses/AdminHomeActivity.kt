@@ -2,10 +2,13 @@ package com.saveetha.schoolattendance.myclasses
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.saveetha.schoolattendance.MainActivity
+import com.saveetha.schoolattendance.R
 import com.saveetha.schoolattendance.databinding.ActivityAdminHpBinding
 
 class AdminHomeActivity : AppCompatActivity() {
@@ -20,12 +23,30 @@ class AdminHomeActivity : AppCompatActivity() {
         binding.logoutButton.setOnClickListener {
             showLogoutDialog()
         }
-
-        binding.viewClassReportsButton.setOnClickListener {
-            val intent = Intent(this, MyClassesActivity::class.java)
-            intent.putExtra("user_type", "admin") // Pass user type as "admin"
+        binding.addTeacherCard.setOnClickListener{
+            val intent = Intent(this, AddTeacherActivity::class.java)
             startActivity(intent)
         }
+
+        binding.viewTeachersButton.setOnClickListener {
+            val intent = Intent(this,MyTeachersActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.viewClassReportsButton.setOnClickListener {
+            Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, MyClassesActivity::class.java)
+            intent.putExtra("user_type", "admin") // Pass user type as "admin"
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            startActivity(intent)
+        }
+
+        val addStudentCard = findViewById<LinearLayout>(R.id.addStudentCard)
+        addStudentCard.setOnClickListener {
+            val intent = Intent(this, AddStudentActivity::class.java)
+            startActivity(intent)
+        }
+
 
         binding.profileIcon.setOnClickListener {
             val adminUsername = intent.getStringExtra("ADMIN_username")

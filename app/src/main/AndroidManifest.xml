@@ -16,14 +16,17 @@
         tools:targetApi="31">
         <activity
             android:name=".myclasses.MyClassesActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".teacherhomepage.TeacherHomepageActivity"
             android:exported="true" >
 
         </activity>
         <activity android:name=".myclasses.ParentHomepageActivity" />
-
+        <activity
+            android:name=".myclasses.AddTeacherActivity"
+            android:exported="true" />
+        <activity android:name=".myclasses.MyTeachersActivity" />
         <activity
         android:name=".myclasses.AttendanceTick"
         android:exported="true" />
@@ -48,8 +51,11 @@
             android:exported="true" />
 
         <activity android:name=".myclasses.ParentProfile" />
-        <activity android:name=".myclasses.AdminHomeActivity" />
+        <activity android:name=".myclasses.AdminHomeActivity"
+            android:exported="true"/>
         <activity android:name=".myclasses.AdminProfile" />
+        <activity android:name=".myclasses.AddStudentActivity"
+            android:exported="true"/>
 
 
     </application>

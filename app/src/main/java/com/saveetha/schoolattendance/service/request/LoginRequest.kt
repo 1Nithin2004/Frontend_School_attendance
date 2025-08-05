@@ -1,5 +1,11 @@
 package com.saveetha.schoolattendance.service.request
 
+import com.google.gson.annotations.SerializedName
+
 data class LoginRequest(
-    val email_address:String, val password:String
+    @SerializedName("email_address")
+    val email: String,
+
+    @SerializedName("password")
+    val password: String
 )
