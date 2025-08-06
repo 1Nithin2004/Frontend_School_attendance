@@ -9,6 +9,7 @@ import com.saveetha.schoolattendance.service.RetroFit
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import com.saveetha.schoolattendance.model.TeacherData
 
 class AddTeacherActivity : AppCompatActivity() {
 
@@ -57,12 +58,12 @@ class AddTeacherActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val teacher = Teacher(name, mail, phoneNum, pass)
+            val teacher = TeacherData(name, mail, phoneNum, pass)
             addTeacherToDB(teacher)
         }
     }
 
-    private fun addTeacherToDB(teacher: Teacher) {
+    private fun addTeacherToDB(teacher: TeacherData) {
         val api = RetroFit.getService()
 
         api.addTeacher(teacher).enqueue(object : Callback<Void> {

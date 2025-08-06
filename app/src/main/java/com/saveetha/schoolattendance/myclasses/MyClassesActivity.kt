@@ -19,6 +19,7 @@ import retrofit2.Response
 class MyClassesActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMyClassesBinding
     private var userType: String = "teacher"  // default to teacher
+    private var sourceScreen: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +30,8 @@ class MyClassesActivity : AppCompatActivity() {
 
         // Set user type from intent
         userType = intent.getStringExtra("user_type") ?: "teacher"
+        sourceScreen = intent.getStringExtra("source") ?: ""
+
 
         // Back arrow
         binding.backArrow.setOnClickListener {
@@ -59,12 +62,24 @@ class MyClassesActivity : AppCompatActivity() {
 
                     adapter.setupclicklistener(object : ClassesAdapter.ClickListener {
                         override fun click(data: MyClasses) {
-                            val intent = Intent(this@MyClassesActivity, MarkorReportActivity::class.java)
-                            intent.putExtra("class_name", data.class_name)
-                            intent.putExtra("user_type", userType)
-                            startActivity(intent)
+                            val className = data.class_name
+
+                            when (sourceScreen) {
+                                "view_students" -> {
+                                    val intent = Intent(this@MyClassesActivity, ViewStudentsActivity::class.java)
+                                    intent.putExtra("class_name", className)
+                                    startActivity(intent)
+                                }
+                                "mark_attendance", "view_report" -> {
+                                    val intent = Intent(this@MyClassesActivity, MarkorReportActivity::class.java)
+                                    intent.putExtra("class_name", className)
+                                    intent.putExtra("user_type", userType)
+                                    startActivity(intent)
+                                }
+                            }
                         }
                     })
+
 
                     binding.classListRV.adapter = adapter
                     binding.classListRV.layoutManager = LinearLayoutManager(this@MyClassesActivity)

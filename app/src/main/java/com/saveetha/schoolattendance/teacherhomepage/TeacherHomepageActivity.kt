@@ -46,7 +46,10 @@ class TeacherHomepageActivity : AppCompatActivity() {
         // ✅ Click listener to navigate to MyClassesActivity
         binding.attendanceCard.setOnClickListener {
             val intent = Intent(this, MyClassesActivity::class.java)
+            intent.putExtra("source", "mark_attendance")
+            intent.putExtra("user_type", "teacher")
             startActivity(intent)
+
         }
 
         binding.profileIcon.setOnClickListener {

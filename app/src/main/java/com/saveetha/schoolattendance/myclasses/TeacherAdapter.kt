@@ -1,4 +1,3 @@
-// TeacherAdapter.kt
 package com.saveetha.schoolattendance.adapter
 
 import android.view.LayoutInflater
@@ -30,7 +29,7 @@ class TeacherAdapter(
 
     override fun onBindViewHolder(holder: TeacherViewHolder, position: Int) {
         val teacher = teacherList[position]
-        holder.teacherName.text = teacher.name
+        holder.teacherName.text = teacher.fullName
 
         holder.editIcon.setOnClickListener { onEditClick(teacher) }
         holder.deleteIcon.setOnClickListener { onDeleteClick(teacher) }

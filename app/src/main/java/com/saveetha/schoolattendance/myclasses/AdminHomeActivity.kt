@@ -33,11 +33,18 @@ class AdminHomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.viewClassReportsButton.setOnClickListener {
-            Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
+        binding.viewStudentsButton.setOnClickListener {
             val intent = Intent(this, MyClassesActivity::class.java)
-            intent.putExtra("user_type", "admin") // Pass user type as "admin"
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.putExtra("user_type", "admin")
+            intent.putExtra("source", "view_students")
+            startActivity(intent)
+        }
+
+
+        binding.viewClassReportsButton.setOnClickListener {
+            val intent = Intent(this, MyClassesActivity::class.java)
+            intent.putExtra("source", "view_report")
+            intent.putExtra("user_type", "teacher") // or "parent" based on the user
             startActivity(intent)
         }
 

@@ -2,12 +2,15 @@ package com.saveetha.schoolattendance.service
 
 import com.saveetha.schoolattendance.myclasses.AttendanceTick
 import com.saveetha.schoolattendance.myclasses.MyClasses
+import com.saveetha.schoolattendance.myclasses.Student
 import com.saveetha.schoolattendance.service.request.LoginRequest
 import com.saveetha.schoolattendance.service.response.LoginResponse
 import com.saveetha.schoolattendance.service.response.ReportResponse
 import com.saveetha.schoolattendance.service.response.Users
 import com.saveetha.schoolattendance.service.response.User
 import com.saveetha.schoolattendance.myclasses.Teacher
+import com.saveetha.schoolattendance.model.TeacherData
+import com.saveetha.schoolattendance.myclasses.AddStudentRequest
 
 import org.json.JSONObject
 import retrofit2.Call
@@ -37,11 +40,15 @@ interface ApiService {
     @GET("attendance/report/{classId}")
     fun getClassReport(@Path("classId") classId: String): Call<List<ReportResponse>>
 
-    @POST("teachers/add")
-    fun addTeacher(@Body teacher: Teacher): Call<Void>
+    @POST("users/addTeacher")
+    fun addTeacher(@Body teacher: TeacherData): Call<Void>
 
-    @GET("teachers")
+    @GET("users/getTeachers")
     fun getTeachers(): Call<List<Teacher>>
 
+    @POST("users/addStudent")
+    fun addStudent(@Body student: AddStudentRequest): Call<Void>
 
+    @GET("users/class/{classId}")
+    fun getStudentsByClass(@Path("classId") classId: Int): Call<List<Student>>
 }

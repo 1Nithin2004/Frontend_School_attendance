@@ -1,184 +1,234 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:background="#FFFFFF"
     android:padding="16dp">
 
-    <!-- Back arrow and title -->
-    <ImageView
-        android:id="@+id/back_arrow"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@drawable/frame"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="12dp" />
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add New Student"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:textColor="#000000"
-        android:layout_centerHorizontal="true"
-        android:layout_alignTop="@id/back_arrow" />
-
-    <!-- Divider below title -->
-    <View
-        android:id="@+id/title_divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#DDDDDD"
-        android:layout_below="@id/back_arrow"
-        android:layout_marginTop="20dp" />
-
-    <!-- Student Name -->
-    <TextView
-        android:id="@+id/studentNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Student Name"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        android:layout_below="@id/title_divider"
-        android:layout_marginTop="24dp" />
-
-    <EditText
-        android:id="@+id/studentName"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_below="@id/studentNameLabel"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_background"
-        android:hint="Enter student's full name"
-        android:padding="12dp"
-        android:textColorHint="#999999"
-        android:textColor="#000000"
-        android:textSize="14sp" />
-
-    <!-- Class -->
-    <TextView
-        android:id="@+id/classLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Class"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        android:layout_below="@id/studentName"
-        android:layout_marginTop="20dp" />
-
-    <Spinner
-        android:id="@+id/classSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_below="@id/classLabel"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_background"
-        android:padding="12dp"
-        android:spinnerMode="dropdown" />
-
-    <!-- Parent's Name -->
-    <TextView
-        android:id="@+id/parentNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Parent's Name"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        android:layout_below="@id/classSpinner"
-        android:layout_marginTop="20dp" />
-
-    <EditText
-        android:id="@+id/parentName"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_below="@id/parentNameLabel"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_background"
-        android:hint="Enter parent's full name"
-        android:padding="12dp"
-        android:textColorHint="#999999"
-        android:textColor="#000000"
-        android:textSize="14sp" />
-
-    <!-- Phone Number -->
-    <TextView
-        android:id="@+id/phoneLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Phone Number"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        android:layout_below="@id/parentName"
-        android:layout_marginTop="20dp" />
-
-    <EditText
-        android:id="@+id/phoneNumber"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_below="@id/phoneLabel"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_background"
-        android:hint="Enter contact number"
-        android:inputType="phone"
-        android:padding="12dp"
-        android:textColorHint="#999999"
-        android:textColor="#000000"
-        android:textSize="14sp" />
-
-    <!-- Date of Birth -->
-    <TextView
-        android:id="@+id/dobLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Date of Birth"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        android:layout_below="@id/phoneNumber"
-        android:layout_marginTop="20dp" />
-
     <RelativeLayout
-        android:id="@+id/dobContainer"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_below="@id/dobLabel"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_background">
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/frame"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="12dp" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add New Student"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:layout_centerHorizontal="true"
+            android:layout_alignTop="@id/back_arrow" />
+
+        <View
+            android:id="@+id/title_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#DDDDDD"
+            android:layout_below="@id/back_arrow"
+            android:layout_marginTop="20dp" />
+
+        <TextView
+            android:id="@+id/studentNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Student Name"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:layout_below="@id/title_divider"
+            android:layout_marginTop="24dp" />
 
         <EditText
-            android:id="@+id/dateOfBirth"
+            android:id="@+id/studentName"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="yyyy / mm / dd"
-            android:background="@android:color/transparent"
+            android:layout_height="48dp"
+            android:layout_below="@id/studentNameLabel"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext_background"
+            android:hint="Enter student's full name"
             android:padding="12dp"
             android:textColorHint="#999999"
             android:textColor="#000000"
             android:textSize="14sp" />
 
-        <ImageView
-            android:id="@+id/calendaricon"
-            android:src="@drawable/calendar"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="12dp" />
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/classLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Class"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:layout_below="@id/studentName"
+            android:layout_marginTop="16dp" />
 
-    <!-- Save Button -->
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_below="@id/dobContainer"
-        android:layout_marginTop="30dp"
-        android:text="Save Student Account"
-        android:textColor="#FFFFFF"
-        android:textStyle="bold"
-        android:textSize="14sp"
-        android:backgroundTint="#4CAF50" />
-</RelativeLayout>
+        <Spinner
+            android:id="@+id/classSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/classLabel"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:minHeight="48dp"
+            android:spinnerMode="dropdown" />
+
+        <TextView
+            android:id="@+id/parentNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Parent's Name"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:layout_below="@id/classSpinner"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/parentName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/parentNameLabel"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext_background"
+            android:hint="Enter parent's full name"
+            android:padding="12dp"
+            android:textColorHint="#999999"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/emailLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email Address"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:layout_below="@id/parentName"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/email"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/emailLabel"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext_background"
+            android:hint="Enter email address"
+            android:inputType="textEmailAddress"
+            android:padding="12dp"
+            android:textColorHint="#999999"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/phoneLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone Number"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:layout_below="@id/email"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/phoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/phoneLabel"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext_background"
+            android:hint="Enter contact number"
+            android:inputType="phone"
+            android:padding="12dp"
+            android:textColorHint="#999999"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/dobLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date of Birth"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:layout_below="@id/phoneNumber"
+            android:layout_marginTop="16dp" />
+
+        <RelativeLayout
+            android:id="@+id/dobContainer"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/dobLabel"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext_background">
+
+            <EditText
+                android:id="@+id/dateOfBirth"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="yyyy / mm / dd"
+                android:background="@android:color/transparent"
+                android:padding="12dp"
+                android:textColorHint="#999999"
+                android:textColor="#000000"
+                android:textSize="14sp"
+                android:focusable="false"
+                android:clickable="true"/>
+
+            <ImageView
+                android:id="@+id/calendaricon"
+                android:src="@drawable/calendar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="12dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/passwordLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:layout_below="@id/dobContainer"
+            android:layout_marginTop="16dp" />
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/passwordLabel"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext_background"
+            android:hint="Enter password"
+            android:inputType="textPassword"
+            android:padding="12dp"
+            android:textColorHint="#999999"
+            android:textColor="#000000"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/password"
+            android:layout_marginTop="24dp"
+            android:text="Save Student Account"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:backgroundTint="#4CAF50" />
+    </RelativeLayout>
+</ScrollView>
