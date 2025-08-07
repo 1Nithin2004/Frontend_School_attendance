@@ -1,4 +1,4 @@
-package com.saveetha.schoolattendance.model
+package com.saveetha.schoolattendance.myclasses
 
 data class TeacherData(
     val name: String,

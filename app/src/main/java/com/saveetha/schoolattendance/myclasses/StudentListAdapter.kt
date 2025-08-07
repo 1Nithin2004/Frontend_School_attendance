@@ -5,11 +5,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.saveetha.schoolattendance.R
+import com.saveetha.schoolattendance.service.ApiService
+import com.saveetha.schoolattendance.service.RetroFit
+import retrofit2.Call
+import android.content.Context
+import androidx.appcompat.app.AlertDialog
+import retrofit2.Callback
+import retrofit2.Response
 
-class StudentListAdapter(private val students: List<Student>) :
-    RecyclerView.Adapter<StudentListAdapter.StudentViewHolder>() {
+class StudentListAdapter(
+    private val context: Context,
+    private var studentList: MutableList<Student>,
+    private val refreshCallback: () -> Unit
+) : RecyclerView.Adapter<StudentListAdapter.StudentViewHolder>() {
+
 
     class StudentViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val name = view.findViewById<TextView>(R.id.studentName)
@@ -23,10 +35,10 @@ class StudentListAdapter(private val students: List<Student>) :
         return StudentViewHolder(view)
     }
 
-    override fun getItemCount() = students.size
+    override fun getItemCount() = studentList.size
 
     override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
-        val student = students[position]
+        val student = studentList[position]
         holder.name.text = student.fullName
 
         holder.edit.setOnClickListener {
@@ -34,7 +46,37 @@ class StudentListAdapter(private val students: List<Student>) :
         }
 
         holder.delete.setOnClickListener {
-            // TODO: Handle delete logic
+            val studentName = studentList[position].fullName
+            val studentId = studentList[position].id
+
+            AlertDialog.Builder(context)
+                .setTitle("Delete Confirmation")
+                .setMessage("Are you sure you want to delete $studentName?")
+                .setPositiveButton("Delete") { _, _ ->
+                    deleteStudent(studentId, position)
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
         }
+    }
+
+    private fun deleteStudent(studentId: Int, position: Int) {
+        val apiService = RetroFit.getService()
+        apiService.deleteStudent(studentId).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    studentList.removeAt(position)
+                    notifyItemRemoved(position)
+                    Toast.makeText(context, "Student deleted", Toast.LENGTH_SHORT).show()
+                    refreshCallback()
+                } else {
+                    Toast.makeText(context, "Delete failed", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Toast.makeText(context, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

@@ -44,8 +44,13 @@ class ViewStudentsActivity : AppCompatActivity() {
                     val students = response.body() ?: emptyList()
                     Log.d("STUDENTS", "Received students: $students")
 
-                    val adapter = StudentListAdapter(students)
+                    val adapter = StudentListAdapter(
+                        this@ViewStudentsActivity, // context
+                        students.toMutableList(),  // make it mutable list
+                        refreshCallback = { fetchStudents() } // refresh logic
+                    )
                     binding.studentRecyclerView.adapter = adapter
+
                     binding.studentRecyclerView.layoutManager = LinearLayoutManager(this@ViewStudentsActivity)
                     binding.studentRecyclerView.visibility = View.VISIBLE
                 } else {

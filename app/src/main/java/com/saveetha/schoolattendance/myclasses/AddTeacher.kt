@@ -9,7 +9,7 @@ import com.saveetha.schoolattendance.service.RetroFit
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import com.saveetha.schoolattendance.model.TeacherData
+import com.saveetha.schoolattendance.myclasses.TeacherData
 
 class AddTeacherActivity : AppCompatActivity() {
 

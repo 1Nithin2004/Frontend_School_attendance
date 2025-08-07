@@ -9,12 +9,13 @@ import com.saveetha.schoolattendance.service.response.ReportResponse
 import com.saveetha.schoolattendance.service.response.Users
 import com.saveetha.schoolattendance.service.response.User
 import com.saveetha.schoolattendance.myclasses.Teacher
-import com.saveetha.schoolattendance.model.TeacherData
+import com.saveetha.schoolattendance.myclasses.TeacherData
 import com.saveetha.schoolattendance.myclasses.AddStudentRequest
 
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -51,4 +52,10 @@ interface ApiService {
 
     @GET("users/class/{classId}")
     fun getStudentsByClass(@Path("classId") classId: Int): Call<List<Student>>
+
+    @DELETE("users/teachers/{id}")
+    fun deleteTeacher(@Path("id") id: Int): Call<Void>
+
+    @DELETE("users/students/{id}")
+    fun deleteStudent(@Path("id") id: Int): Call<Void>
 }

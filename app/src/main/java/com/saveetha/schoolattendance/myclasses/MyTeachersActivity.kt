@@ -2,6 +2,7 @@ package com.saveetha.schoolattendance.myclasses
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.saveetha.schoolattendance.adapter.TeacherAdapter
@@ -29,7 +30,14 @@ class MyTeachersActivity : AppCompatActivity() {
         teacherAdapter = TeacherAdapter(listOf(), onEditClick = { teacher ->
             // TODO: Handle edit click
         }, onDeleteClick = { teacher ->
-            // TODO: Handle delete click
+            AlertDialog.Builder(this@MyTeachersActivity)
+                .setTitle("Confirm Delete")
+                .setMessage("Are you sure you want to delete ${teacher.fullName}?")
+                .setPositiveButton("Delete") { _, _ ->
+                    deleteTeacherFromServer(teacher.id)
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
         })
 
         binding.teacherRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -46,7 +54,14 @@ class MyTeachersActivity : AppCompatActivity() {
                             // TODO: Handle edit click
                         },
                         onDeleteClick = { teacher ->
-                            // TODO: Handle delete click
+                                AlertDialog.Builder(this@MyTeachersActivity)
+                                .setTitle("Confirm Delete")
+                                .setMessage("Are you sure you want to delete ${teacher.fullName}?")
+                                .setPositiveButton("Delete") { _, _ ->
+                                    deleteTeacherFromServer(teacher.id)
+                                }
+                                .setNegativeButton("Cancel", null)
+                                .show()
                         }
                     )
                     binding.teacherRecyclerView.adapter = teacherAdapter
@@ -56,6 +71,22 @@ class MyTeachersActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<List<Teacher>>, t: Throwable) {
+                Toast.makeText(this@MyTeachersActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+    private fun deleteTeacherFromServer(teacherId: Int) {
+        RetroFit.getService().deleteTeacher(teacherId).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(this@MyTeachersActivity, "Teacher deleted successfully", Toast.LENGTH_SHORT).show()
+                    loadTeachersFromServer() // refresh list
+                } else {
+                    Toast.makeText(this@MyTeachersActivity, "Failed to delete teacher", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
                 Toast.makeText(this@MyTeachersActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
