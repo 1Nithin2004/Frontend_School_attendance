@@ -14,6 +14,7 @@ import com.saveetha.schoolattendance.myclasses.AddStudentRequest
 
 import org.json.JSONObject
 import retrofit2.Call
+import retrofit2.http.PUT
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -31,9 +32,6 @@ interface ApiService {
 
     @GET("users/class/{class_id}")
     fun getStudentsIntoClass(@Path("class_id") classId:String): Call<List<Users>>
-
-    @GET("users/{id}")
-    fun getUserById(@Path("id") id: Int): Call<User>
 
     @POST("attendance/mark")
     fun attendancemarking(@Body data: Map<String, String>): Call<Map<String, String>>
@@ -58,4 +56,10 @@ interface ApiService {
 
     @DELETE("users/students/{id}")
     fun deleteStudent(@Path("id") id: Int): Call<Void>
+
+    @GET("users/teachers/{id}")
+    fun getTeacherById(@Path("id") id: Int): Call<Teacher>
+
+    @PUT("users/teachers/{id}")
+    fun updateTeacher(@Path("id") id: Int, @Body updatedData: Map<String, String>): Call<Void>
 }

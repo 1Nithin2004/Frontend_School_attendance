@@ -10,7 +10,7 @@ import com.saveetha.schoolattendance.R
 import com.saveetha.schoolattendance.myclasses.Teacher
 
 class TeacherAdapter(
-    private val teacherList: List<Teacher>,
+    private val teacherList: MutableList<Teacher>,
     private val onEditClick: (Teacher) -> Unit,
     private val onDeleteClick: (Teacher) -> Unit
 ) : RecyclerView.Adapter<TeacherAdapter.TeacherViewHolder>() {
@@ -36,4 +36,9 @@ class TeacherAdapter(
     }
 
     override fun getItemCount(): Int = teacherList.size
+    fun updateData(newList: List<Teacher>) {
+        teacherList.clear()
+        teacherList.addAll(newList)
+        notifyDataSetChanged()
+    }
 }
