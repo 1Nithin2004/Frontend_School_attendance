@@ -60,6 +60,9 @@
         <activity android:name=".myclasses.AddStudentActivity"
             android:exported="true"/>
         <activity android:name=".myclasses.ViewStudentsActivity" />
+        <activity
+            android:name=".myclasses.UpdateStudentActivity"
+            android:exported="true" />
 
 
     </application>

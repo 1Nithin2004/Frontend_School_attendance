@@ -12,6 +12,7 @@ import com.saveetha.schoolattendance.service.ApiService
 import com.saveetha.schoolattendance.service.RetroFit
 import retrofit2.Call
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AlertDialog
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,8 +43,18 @@ class StudentListAdapter(
         holder.name.text = student.fullName
 
         holder.edit.setOnClickListener {
-            // TODO: Handle edit logic
+            val intent = Intent(context, UpdateStudentActivity::class.java)
+            intent.putExtra("studentId", student.id)
+            intent.putExtra("studentName", student.fullName)
+            intent.putExtra("studentEmail", student.email)
+            intent.putExtra("studentPhone", student.phoneNumber.toString()) // convert Long to String
+            intent.putExtra("studentPassword", student.password)
+            intent.putExtra("studentClass", student.studentClass)
+            intent.putExtra("studentDob", student.dob)
+            intent.putExtra("parentName", student.parentsName)
+            context.startActivity(intent)
         }
+
 
         holder.delete.setOnClickListener {
             val studentName = studentList[position].fullName

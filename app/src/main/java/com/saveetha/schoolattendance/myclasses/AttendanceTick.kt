@@ -31,7 +31,7 @@ class AttendanceTick : AppCompatActivity() {
 
     private var studentsList:List<Users>? = null
 
-    private lateinit var dialog: AlertDialog
+    private lateinit var dialog: android.app.AlertDialog
 
     var classId:String = ""
 

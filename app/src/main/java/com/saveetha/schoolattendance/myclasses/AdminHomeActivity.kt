@@ -1,11 +1,12 @@
 package com.saveetha.schoolattendance.myclasses
 
+import androidx.appcompat.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.saveetha.schoolattendance.MainActivity
 import com.saveetha.schoolattendance.R
@@ -40,11 +41,10 @@ class AdminHomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
-        binding.viewClassReportsButton.setOnClickListener {
+        binding.viewClassReportsCard.setOnClickListener {
             val intent = Intent(this, MyClassesActivity::class.java)
             intent.putExtra("source", "view_report")
-            intent.putExtra("user_type", "teacher") // or "parent" based on the user
+            intent.putExtra("user_type", "teacher")
             startActivity(intent)
         }
 
@@ -61,6 +61,23 @@ class AdminHomeActivity : AppCompatActivity() {
             intent.putExtra("ADMIN_username", adminUsername)
             startActivity(intent)
         }
+
+
+    }
+
+
+    fun setAttendancePercentage(percentage: Int, progressBar: ProgressBar) {
+        progressBar.progress = percentage
+
+        // Set color dynamically
+        val color = when {
+            percentage >= 100 -> 0xFF00FF00.toInt()   // Green
+            percentage >= 75  -> 0xFFFFA500.toInt()   // Orange
+            percentage >= 50  -> 0xFFFFFF00.toInt()   // Yellow
+            else              -> 0xFFFF0000.toInt()   // Red
+        }
+
+        progressBar.progressDrawable.setColorFilter(color, android.graphics.PorterDuff.Mode.SRC_IN)
     }
 
     private fun showLogoutDialog() {

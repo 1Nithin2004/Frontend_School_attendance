@@ -62,4 +62,7 @@ interface ApiService {
 
     @PUT("users/teachers/{id}")
     fun updateTeacher(@Path("id") id: Int, @Body updatedData: Map<String, String>): Call<Void>
+
+    @PUT("users/updateStudent/{id}")
+    fun updateStudent(@Path("id") id: Int, @Body student: Student): Call<Void>
 }
