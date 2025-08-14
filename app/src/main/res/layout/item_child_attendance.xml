@@ -1,0 +1,68 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center_horizontal"
+    android:layout_marginBottom="12dp">
+
+    <!-- Top row: arrow + student name -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tvStudentName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Student Name"
+            android:textSize="18sp"
+            android:layout_marginEnd="8dp"/>
+    </LinearLayout>
+
+    <!-- Circular progress bar -->
+    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+        android:id="@+id/circularProgressBar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        app:cpb_progress="0"
+        app:cpb_max="100"
+        app:cpb_progress_bar_width="8dp"
+        app:cpb_background_progress_bar_width="4dp"
+        android:layout_marginTop="12dp"/>
+
+    <!-- Attendance card -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/card_background"
+        android:padding="12dp"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:id="@+id/tvTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Days: 0"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/tvPresent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Present Days: 0"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/tvAbsent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Absent Days: 0"/>
+    </LinearLayout>
+
+</LinearLayout>

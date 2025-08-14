@@ -1,18 +1,17 @@
 package com.saveetha.schoolattendance.service
 
-import com.saveetha.schoolattendance.myclasses.AttendanceTick
 import com.saveetha.schoolattendance.myclasses.MyClasses
 import com.saveetha.schoolattendance.myclasses.Student
 import com.saveetha.schoolattendance.service.request.LoginRequest
 import com.saveetha.schoolattendance.service.response.LoginResponse
 import com.saveetha.schoolattendance.service.response.ReportResponse
 import com.saveetha.schoolattendance.service.response.Users
-import com.saveetha.schoolattendance.service.response.User
 import com.saveetha.schoolattendance.myclasses.Teacher
 import com.saveetha.schoolattendance.myclasses.TeacherData
 import com.saveetha.schoolattendance.myclasses.AddStudentRequest
+import com.saveetha.schoolattendance.myclasses.ChildAttendance
+import com.saveetha.schoolattendance.myclasses.ParentNameResponse
 
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.PUT
 import retrofit2.http.Body
@@ -20,7 +19,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
-import java.util.TreeSet
+import retrofit2.http.Query
 
 interface ApiService {
 
@@ -65,4 +64,11 @@ interface ApiService {
 
     @PUT("users/updateStudent/{id}")
     fun updateStudent(@Path("id") id: Int, @Body student: Student): Call<Void>
+
+    @GET("parent/{parentName}/attendance")
+    fun getParentAttendance(@Path("parentName") parentName: String): Call<List<ChildAttendance>>
+
+    @GET("parent/name/{email}")
+    fun getParentNameByEmail(@Path("email") email: String): Call<ParentNameResponse>
 }
+

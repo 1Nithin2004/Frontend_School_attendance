@@ -34,7 +34,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Admin"
+            android:text="Parent"
             android:textStyle="bold"
             android:textSize="20sp"
             android:textColor="#000000"
@@ -95,6 +95,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/viewAttendanceButton"
                     android:text="Attendance"
                     android:textSize="16sp"
                     android:textStyle="bold"

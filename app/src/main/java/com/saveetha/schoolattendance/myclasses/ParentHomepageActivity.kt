@@ -42,6 +42,14 @@ class ParentHomepageActivity : AppCompatActivity() {
             showLogoutDialog()
         }
 
+        // Where you open the attendance screen
+        binding.attendanceCard.setOnClickListener {
+            val email = intent.getStringExtra("PARENT_username") ?: return@setOnClickListener
+            val i = Intent(this, ParentCircularActivity::class.java)
+            i.putExtra("PARENT_username", email)
+            startActivity(i)
+        }
+
 
         binding.profileIcon.setOnClickListener {
             val parentUsername = intent.getStringExtra("PARENT_username")
