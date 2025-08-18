@@ -1,26 +1,25 @@
-package com.saveetha.schoolattendance.myclasses
+package com.saveetha.schoolattendance.adapter
 
-import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import com.saveetha.schoolattendance.R
+import com.saveetha.schoolattendance.myclasses.ChildAttendance
 
 class ChildAttendanceAdapter(
-    private val context: Context,
-    private val list: List<ChildAttendance>
+    private val studentList: List<ChildAttendance>
 ) : RecyclerView.Adapter<ChildAttendanceAdapter.AttendanceViewHolder>() {
 
-    inner class AttendanceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val circularProgressBar: CircularProgressBar = itemView.findViewById(R.id.circularProgressBar)
+    class AttendanceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvStudentName: TextView = itemView.findViewById(R.id.tvStudentName)
-        val tvTotalDays: TextView = itemView.findViewById(R.id.tvTotal)
-        val tvPresentDays: TextView = itemView.findViewById(R.id.tvPresent)
-        val tvAbsentDays: TextView = itemView.findViewById(R.id.tvAbsent)
+        val circularProgressBar: CircularProgressBar = itemView.findViewById(R.id.circularProgressBar)
+        val tvTotal: TextView = itemView.findViewById(R.id.tvTotal)
+        val tvPresent: TextView = itemView.findViewById(R.id.tvPresent)
+        val tvAbsent: TextView = itemView.findViewById(R.id.tvAbsent)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttendanceViewHolder {
@@ -29,24 +28,33 @@ class ChildAttendanceAdapter(
         return AttendanceViewHolder(view)
     }
 
+    override fun getItemCount(): Int = studentList.size
+
     override fun onBindViewHolder(holder: AttendanceViewHolder, position: Int) {
-        val child = list[position]
+        val student = studentList[position]
 
-        holder.tvStudentName.text = child.name
-        holder.tvTotalDays.text = "Total: ${child.total_days}"
-        holder.tvPresentDays.text = "Present: ${child.present_days}"
-        holder.tvAbsentDays.text = "Absent: ${child.absent_days}"
+        // Set student name
+        holder.tvStudentName.text = student.name
 
-        val percentage = child.attendance_percentage.toFloat()
-        holder.circularProgressBar.progress = percentage
+        // Set attendance texts
+        holder.tvTotal.text = "Total Days: ${student.total_days}"
+        holder.tvPresent.text = "Present Days: ${student.present_days}"
+        holder.tvAbsent.text = "Absent Days: ${student.absent_days}"
 
-        val color = when {
-            percentage >= 70 -> ContextCompat.getColor(context, R.color.green)
-            percentage >= 50 -> ContextCompat.getColor(context, R.color.yellow)
-            else -> ContextCompat.getColor(context, R.color.red)
+        // Calculate percentage (float)
+        val attendancePercentage = student.attendance_percentage.toFloatOrNull() ?: 0f
+
+        // Configure circular progress bar
+        holder.circularProgressBar.apply {
+            progressBarWidth = 8f
+            backgroundProgressBarWidth = 4f
+            progress = attendancePercentage
+            progressBarColor = when (student.status.lowercase()) {
+                "green" -> Color.GREEN
+                "yellow" -> Color.YELLOW
+                "red" -> Color.RED
+                else -> Color.GRAY
+            }
         }
-        holder.circularProgressBar.progressBarColor = color
     }
-
-    override fun getItemCount(): Int = list.size
 }

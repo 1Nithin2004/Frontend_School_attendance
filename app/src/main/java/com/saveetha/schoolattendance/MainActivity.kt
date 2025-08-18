@@ -109,13 +109,14 @@ class MainActivity : AppCompatActivity() {
                             if (userType == "Teacher") {
                                 val teacherHomepageIntent = Intent(this@MainActivity, TeacherHomepageActivity::class.java).apply {
                                     putExtra("USERNAME", username)
+                                    putExtra("TEACHER_ID" , userId.toString())
                                 }
                                 startActivity(teacherHomepageIntent)
                                 finish()
                             }else if(userType=="Parent") {
                                 val ParentHomepage = Intent(this@MainActivity, ParentHomepageActivity::class.java).apply {
 //                                    putExtra("USERNAME", userNameFromResponse)
-                                    putExtra("PARENT_username", username) // Pass the ID as PARENT_ID
+                                    putExtra("USER_ID", userId.toString())
                                 }
                                 startActivity(ParentHomepage)
                                 finish() // Close MainActivity after successful login

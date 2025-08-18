@@ -1,14 +1,9 @@
 pluginManagement {
     repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
+        google()
         mavenCentral()
         gradlePluginPortal()
+        maven { url = uri("https://jitpack.io") } // for material-calendarview
     }
 }
 dependencyResolutionManagement {
@@ -16,9 +11,8 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri("https://jitpack.io") } // for material-calendarview
     }
 }
-
-rootProject.name = "School Attendance"
+rootProject.name = "SchoolAttendance"
 include(":app")
- 

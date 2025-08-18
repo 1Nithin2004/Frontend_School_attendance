@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.saveetha.schoolattendance.R
+import com.saveetha.schoolattendance.adapter.ChildAttendanceAdapter
 import com.saveetha.schoolattendance.service.ApiService
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,12 +27,12 @@ class ParentAttendanceActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Initialize adapter with context + list
-        adapter = ChildAttendanceAdapter(this, list)
+        // Adapter with the list
+        adapter = ChildAttendanceAdapter(list)
         recyclerView.adapter = adapter
 
         // Get email from intent
-        val parentEmail = intent.getStringExtra("email") ?: return
+        val parentEmail = intent.getStringExtra("PARENT_username") ?: return
 
         fetchAttendanceForParent(parentEmail)
     }
@@ -44,13 +45,11 @@ class ParentAttendanceActivity : AppCompatActivity() {
 
         val api = retrofit.create(ApiService::class.java)
 
-        // Step 1: Get parent name
         api.getParentNameByEmail(email).enqueue(object : Callback<ParentNameResponse> {
             override fun onResponse(call: Call<ParentNameResponse>, response: Response<ParentNameResponse>) {
                 if (response.isSuccessful && response.body() != null) {
                     val parentName = response.body()!!.parentName
 
-                    // Step 2: Fetch attendance using parent name
                     api.getParentAttendance(parentName).enqueue(object : Callback<List<ChildAttendance>> {
                         override fun onResponse(
                             call: Call<List<ChildAttendance>>,

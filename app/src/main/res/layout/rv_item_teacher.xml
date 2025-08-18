@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="12dp"
     android:background="#FFFFFF"
@@ -34,7 +34,7 @@
             android:background="@android:color/transparent"
             android:src="@android:drawable/ic_menu_edit"
             android:contentDescription="Edit"
-            android:tint="#2196F3" />
+            app:tint="#2196F3" />
 
         <ImageButton
             android:id="@+id/btnDelete"
@@ -43,6 +43,6 @@
             android:background="@android:color/transparent"
             android:src="@android:drawable/ic_menu_delete"
             android:contentDescription="Delete"
-            android:tint="#F44336" />
+            app:tint="#F44336" />
     </LinearLayout>
 </LinearLayout>

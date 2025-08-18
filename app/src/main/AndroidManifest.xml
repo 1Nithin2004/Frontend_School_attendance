@@ -51,7 +51,7 @@
             android:name=".myclasses.TeacherProfile"
             android:exported="true" />
         <activity android:name=".myclasses.UpdateTeachersActivity" />
-        <activity android:name=".myclasses.ParentCircularActivity" android:exported="true" />
+        <activity android:name=".myclasses.ParentAttendanceActivity" android:exported="true" />
 
         <activity android:name=".myclasses.ParentProfile" />
         <activity android:name=".myclasses.AdminHomeActivity"
