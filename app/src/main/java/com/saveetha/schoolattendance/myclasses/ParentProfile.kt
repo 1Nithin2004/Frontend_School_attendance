@@ -22,10 +22,9 @@ class ParentProfile : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Profile Details"
 
-        // Expecting USER_ID (string) to be passed from login/intent
+        // Get USER_ID from intent
         parentId = intent.getStringExtra("USER_ID")
 
-        // Back arrow handler (if you added one in layout)
         binding.backArrow.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
@@ -40,7 +39,7 @@ class ParentProfile : AppCompatActivity() {
     private fun loadParentProfile(id: String) {
         val client = OkHttpClient()
         val request = Request.Builder()
-            .url("https://grlp1vvl-3000.inc1.devtunnels.ms/users/$id")
+            .url("https://grlp1vvl-3000.inc1.devtunnels.ms/users/$id") // Make sure this matches backend route
             .build()
 
         client.newCall(request).enqueue(object : Callback {
@@ -59,11 +58,11 @@ class ParentProfile : AppCompatActivity() {
                         Log.d("API_RESPONSE", responseData ?: "null")
 
                         runOnUiThread {
-                            binding.tvName.text = " ${obj.optString("Full_Name", "N/A")}"
-                            binding.tvPhone.text = " ${obj.optString("Phone_Number", "N/A")}"
-                            binding.tvEmail.text = " ${obj.optString("email_address", "N/A")}"
-                            binding.tvDob.text = " ${obj.optString("Date_of_Birth", "N/A")}"
-                            binding.tvClasses.text = " ${obj.optString("Class", "N/A")}"
+                            binding.tvName.text = obj.optString("Full_Name", "N/A")
+                            binding.tvPhone.text = obj.optString("Phone_Number", "N/A")
+                            binding.tvEmail.text = obj.optString("email_address", "N/A")
+                            binding.tvDob.text = obj.optString("Date_of_Birth", "N/A")
+                            binding.tvClasses.text = obj.optString("Class", "N/A")
                         }
                     } catch (e: Exception) {
                         e.printStackTrace()

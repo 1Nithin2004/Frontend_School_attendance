@@ -49,7 +49,7 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
 
     // Circular Progress Bar
-    implementation("com.mikhaellopez:circularprogressbar:3.1.0")
+    implementation("com.github.lzyzsd:circleprogress:1.2.1")
 
     // Material Calendar View (AndroidX)
     implementation("com.prolificinteractive:material-calendarview:1.4.3")

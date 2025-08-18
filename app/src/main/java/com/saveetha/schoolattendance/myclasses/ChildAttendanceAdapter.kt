@@ -6,9 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import com.saveetha.schoolattendance.R
 import com.saveetha.schoolattendance.myclasses.ChildAttendance
+import com.github.lzyzsd.circleprogress.DonutProgress
 
 class ChildAttendanceAdapter(
     private val studentList: List<ChildAttendance>
@@ -16,10 +16,10 @@ class ChildAttendanceAdapter(
 
     class AttendanceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tvStudentName: TextView = itemView.findViewById(R.id.tvStudentName)
-        val circularProgressBar: CircularProgressBar = itemView.findViewById(R.id.circularProgressBar)
-        val tvTotal: TextView = itemView.findViewById(R.id.tvTotal)
-        val tvPresent: TextView = itemView.findViewById(R.id.tvPresent)
-        val tvAbsent: TextView = itemView.findViewById(R.id.tvAbsent)
+        val circularProgress: DonutProgress = itemView.findViewById(R.id.circularProgress)
+        val tvTotal: TextView = itemView.findViewById(R.id.tvTotalValue)
+        val tvPresent: TextView = itemView.findViewById(R.id.tvPresentValue)
+        val tvAbsent: TextView = itemView.findViewById(R.id.tvAbsentValue)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttendanceViewHolder {
@@ -33,28 +33,31 @@ class ChildAttendanceAdapter(
     override fun onBindViewHolder(holder: AttendanceViewHolder, position: Int) {
         val student = studentList[position]
 
-        // Set student name
+        // Student name
         holder.tvStudentName.text = student.name
 
-        // Set attendance texts
-        holder.tvTotal.text = "Total Days: ${student.total_days}"
-        holder.tvPresent.text = "Present Days: ${student.present_days}"
-        holder.tvAbsent.text = "Absent Days: ${student.absent_days}"
+        // Attendance values
+        holder.tvTotal.text = student.total_days.toString()
+        holder.tvPresent.text = student.present_days.toString()
+        holder.tvAbsent.text = student.absent_days.toString()
 
-        // Calculate percentage (float)
-        val attendancePercentage = student.attendance_percentage.toFloatOrNull() ?: 0f
+        // Attendance percentage
+        val percentage = student.attendance_percentage.toFloatOrNull() ?: 0f
 
-        // Configure circular progress bar
-        holder.circularProgressBar.apply {
-            progressBarWidth = 8f
-            backgroundProgressBarWidth = 4f
-            progress = attendancePercentage
-            progressBarColor = when (student.status.lowercase()) {
-                "green" -> Color.GREEN
-                "yellow" -> Color.YELLOW
-                "red" -> Color.RED
-                else -> Color.GRAY
-            }
+        // Determine color
+        val color = when (student.status.lowercase()) {
+            "green" -> Color.GREEN
+            "yellow" -> Color.YELLOW
+            "red" -> Color.RED
+            else -> Color.GRAY
         }
+
+        holder.circularProgress.apply {
+            finishedStrokeColor = color
+            unfinishedStrokeColor = Color.LTGRAY
+            progress = percentage         // sets the donut progress
+            text = "${percentage.toInt()}%"
+        }
+
     }
 }

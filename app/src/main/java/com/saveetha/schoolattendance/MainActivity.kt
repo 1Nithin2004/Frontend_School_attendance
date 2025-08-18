@@ -105,6 +105,7 @@ class MainActivity : AppCompatActivity() {
                             edit.putInt("user_id", userId).apply()
                             edit.putString("user_type", userType).apply()
                             edit.putString("username", username).apply()
+                            edit.putString("parent_name", userFullName).apply()
 
                             if (userType == "Teacher") {
                                 val teacherHomepageIntent = Intent(this@MainActivity, TeacherHomepageActivity::class.java).apply {

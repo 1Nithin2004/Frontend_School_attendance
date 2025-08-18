@@ -1,8 +1,10 @@
 package com.saveetha.schoolattendance.myclasses
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -19,8 +21,6 @@ class ParentHomepageActivity : AppCompatActivity() {
         binding = ActivityParentHomepageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val parentId = intent.getStringExtra("USER_ID")
-
         // Edge-to-edge support
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
             enableEdgeToEdge()
@@ -31,11 +31,14 @@ class ParentHomepageActivity : AppCompatActivity() {
             }
         }
 
-        setupClickListeners(parentId)
+        setupClickListeners()
     }
 
     /** Setup click listeners for cards and icons */
-    private fun setupClickListeners(parentId: String?) {
+    private fun setupClickListeners() {
+        // Get parent name from SharedPreferences
+        val sharedPrefs = getSharedPreferences("login", Context.MODE_PRIVATE)
+        val parentName = sharedPrefs.getString("parent_name", "") ?: ""
 
         // Logout button
         binding.logout.setOnClickListener {
@@ -43,18 +46,37 @@ class ParentHomepageActivity : AppCompatActivity() {
         }
 
         // Attendance card click
+        // In ParentHomepageActivity
         binding.attendanceCard.setOnClickListener {
-            val intent = Intent(this, ParentAttendanceActivity::class.java)
-            intent.putExtra("USER_ID", parentId)
-            startActivity(intent)
+            // Get parent name from SharedPreferences
+            val sharedPrefs = getSharedPreferences("login", Context.MODE_PRIVATE)
+            val parentName = sharedPrefs.getString("parent_name", "") ?: ""
+
+            if (parentName.isNotEmpty()) {
+                // Pass parentName to ParentAttendanceActivity
+                val intent = Intent(this, ParentAttendanceActivity::class.java)
+                intent.putExtra("PARENT_NAME", parentName)
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Parent name not found", Toast.LENGTH_SHORT).show()
+            }
         }
 
-        // Profile icon click
+
+
         binding.profileIcon.setOnClickListener {
-            val intent = Intent(this, ParentProfile::class.java)
-            intent.putExtra("USER_ID", parentId)
-            startActivity(intent)
+            val sharedPrefs = getSharedPreferences("login", Context.MODE_PRIVATE)
+            val userId = sharedPrefs.getInt("user_id", 0)
+
+            if (userId != 0) {
+                val intent = Intent(this, ParentProfile::class.java)
+                intent.putExtra("USER_ID", userId.toString())
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "Parent ID not found", Toast.LENGTH_SHORT).show()
+            }
         }
+
     }
 
     /** Logout confirmation dialog */
@@ -63,7 +85,7 @@ class ParentHomepageActivity : AppCompatActivity() {
             .setTitle("Logout")
             .setMessage("Are you sure you want to logout?")
             .setPositiveButton("Yes") { _, _ ->
-                finish() // End activity, return to previous screen or login
+                finish() // End activity, return to login screen
             }
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()

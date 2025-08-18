@@ -1,6 +1,9 @@
 package com.saveetha.schoolattendance.myclasses
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,64 +21,74 @@ class ParentAttendanceActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ChildAttendanceAdapter
-    private val list = mutableListOf<ChildAttendance>()
+    private var studentList = mutableListOf<ChildAttendance>()
+    private lateinit var tvEmpty: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_parent_attendance)
 
-        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView = findViewById(R.id.recyclerViewAttendance)
+        tvEmpty = findViewById(R.id.tvEmptyAttendance)
         recyclerView.layoutManager = LinearLayoutManager(this)
-
-        // Adapter with the list
-        adapter = ChildAttendanceAdapter(list)
+        adapter = ChildAttendanceAdapter(studentList)
         recyclerView.adapter = adapter
 
-        // Get email from intent
-        val parentEmail = intent.getStringExtra("PARENT_username") ?: return
+        // Get parent name from SharedPreferences
+        val parentName = getSharedPreferences("login", MODE_PRIVATE)
+            .getString("parent_name", "")?.trim() ?: ""
 
-        fetchAttendanceForParent(parentEmail)
+        Log.d("ParentAttendance", "Parent name from SharedPreferences: '$parentName'")
+
+        if (parentName.isNotEmpty()) {
+            fetchAttendance(parentName)
+        } else {
+            tvEmpty.text = "Parent name not found"
+            tvEmpty.visibility = View.VISIBLE
+            Toast.makeText(this, "Parent name not provided", Toast.LENGTH_SHORT).show()
+        }
     }
 
-    private fun fetchAttendanceForParent(email: String) {
+    private fun fetchAttendance(parentName: String) {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://grlp1vvl-3000.inc1.devtunnels.ms/")
+            .baseUrl("https://grlp1vvl-3000.inc1.devtunnels.ms/") // Base URL only
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         val api = retrofit.create(ApiService::class.java)
 
-        api.getParentNameByEmail(email).enqueue(object : Callback<ParentNameResponse> {
-            override fun onResponse(call: Call<ParentNameResponse>, response: Response<ParentNameResponse>) {
-                if (response.isSuccessful && response.body() != null) {
-                    val parentName = response.body()!!.parentName
+        Log.d("ParentAttendance", "Calling API for parent: $parentName")
 
-                    api.getParentAttendance(parentName).enqueue(object : Callback<List<ChildAttendance>> {
-                        override fun onResponse(
-                            call: Call<List<ChildAttendance>>,
-                            response: Response<List<ChildAttendance>>
-                        ) {
-                            if (response.isSuccessful && response.body() != null) {
-                                list.clear()
-                                list.addAll(response.body()!!)
-                                adapter.notifyDataSetChanged()
-                            } else {
-                                Toast.makeText(this@ParentAttendanceActivity, "No attendance found", Toast.LENGTH_SHORT).show()
-                            }
-                        }
+        api.getParentAttendance(parentName).enqueue(object : Callback<List<ChildAttendance>> {
+            override fun onResponse(
+                call: Call<List<ChildAttendance>>,
+                response: Response<List<ChildAttendance>>
+            ) {
+                Log.d("ParentAttendance", "Response code: ${response.code()}")
+                Log.d("ParentAttendance", "Response body: ${response.body()}")
 
-                        override fun onFailure(call: Call<List<ChildAttendance>>, t: Throwable) {
-                            Toast.makeText(this@ParentAttendanceActivity, "Failed to load attendance", Toast.LENGTH_SHORT).show()
-                        }
-                    })
-
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    if (!data.isNullOrEmpty()) {
+                        studentList.clear()
+                        studentList.addAll(data)
+                        adapter.notifyDataSetChanged()
+                        tvEmpty.visibility = View.GONE
+                    } else {
+                        tvEmpty.text = "No attendance data found"
+                        tvEmpty.visibility = View.VISIBLE
+                    }
                 } else {
-                    Toast.makeText(this@ParentAttendanceActivity, "Parent not found", Toast.LENGTH_SHORT).show()
+                    tvEmpty.text = "Failed to fetch attendance"
+                    tvEmpty.visibility = View.VISIBLE
+                    Log.e("ParentAttendance", "API error: ${response.errorBody()?.string()}")
                 }
             }
 
-            override fun onFailure(call: Call<ParentNameResponse>, t: Throwable) {
-                Toast.makeText(this@ParentAttendanceActivity, "Failed to fetch parent", Toast.LENGTH_SHORT).show()
+            override fun onFailure(call: Call<List<ChildAttendance>>, t: Throwable) {
+                tvEmpty.text = "Error: ${t.message}"
+                tvEmpty.visibility = View.VISIBLE
+                Log.e("ParentAttendance", "API call failed", t)
             }
         })
     }
