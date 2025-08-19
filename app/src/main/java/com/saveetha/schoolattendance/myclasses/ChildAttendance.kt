@@ -1,11 +1,10 @@
 package com.saveetha.schoolattendance.myclasses
 
 data class ChildAttendance(
-    val student_id: Int,
-    val name: String,
-    val total_days: Int,
-    val present_days: Int,
-    val absent_days: Int,
-    val attendance_percentage: String,
-    val status: String // green, yellow, red
+    val Full_Name: String,
+    val Class: String,
+    val classes_present: String,
+    val classes_absent: String,
+    val total: Int,
+    val percentage: String
 )

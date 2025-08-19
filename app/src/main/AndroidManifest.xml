@@ -43,6 +43,7 @@
         </activity>
      <activity
          android:name=".myclasses.MarkorReportActivity"
+         android:launchMode="singleTop"
          android:exported="true" />
 
         <activity android:name=".myclasses.StudentReportActivity"

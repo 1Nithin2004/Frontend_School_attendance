@@ -65,8 +65,7 @@ interface ApiService {
     @PUT("users/updateStudent/{id}")
     fun updateStudent(@Path("id") id: Int, @Body student: Student): Call<Void>
 
-    @GET("attendance/parent/{parentName}/attendance")
-    fun getParentAttendance(@Path("parentName") parentName: String): Call<List<ChildAttendance>>
-
+    @GET("users/parent/{email}/attendance")
+    fun getParentAttendance(@Path("email") email: String) : Call<ChildAttendance>
 }
 

@@ -1,95 +1,119 @@
 package com.saveetha.schoolattendance.myclasses
 
+import android.animation.ObjectAnimator
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import android.view.View
+import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.saveetha.schoolattendance.R
-import com.saveetha.schoolattendance.adapter.ChildAttendanceAdapter
-import com.saveetha.schoolattendance.service.ApiService
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
+import retrofit2.http.Path
+
+// Data class matching your JSON
+data class Attendance(
+    val Full_Name: String,
+    val Class: String,
+    val classes_present: String,
+    val classes_absent: String,
+    val total: Int,
+    val percentage: String
+)
+
+// Retrofit API interface
+interface ApiService {
+    @GET("users/parent/{email}/attendance")
+    fun getAttendance(@Path("email") email: String): Call<Attendance>
+}
 
 class ParentAttendanceActivity : AppCompatActivity() {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: ChildAttendanceAdapter
-    private var studentList = mutableListOf<ChildAttendance>()
-    private lateinit var tvEmpty: TextView
+    private lateinit var progressBar: ProgressBar
+    private lateinit var percentText: TextView
+    private lateinit var tvTotalClasses: TextView
+    private lateinit var tvAttendedClasses: TextView
+    private lateinit var tvAbsentClasses: TextView
+    private lateinit var ivBack: ImageView
+    private lateinit var tvStudentName: TextView
+    private lateinit var tvClassName: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_parent_attendance)
 
-        recyclerView = findViewById(R.id.recyclerViewAttendance)
-        tvEmpty = findViewById(R.id.tvEmptyAttendance)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = ChildAttendanceAdapter(studentList)
-        recyclerView.adapter = adapter
+        progressBar = findViewById(R.id.progressAttendance)
+        percentText = findViewById(R.id.tvAttendancePercent)
+        tvTotalClasses = findViewById(R.id.tvTotalClasses)
+        tvAttendedClasses = findViewById(R.id.tvAttendedClasses)
+        tvAbsentClasses = findViewById(R.id.tvAbsentClasses)
+        ivBack = findViewById(R.id.ivBack)
+        tvStudentName = findViewById(R.id.tvStudentName)
+        tvClassName = findViewById(R.id.tvClassName)
 
-        // Get parent name from SharedPreferences
-        val parentName = getSharedPreferences("login", MODE_PRIVATE)
-            .getString("parent_name", "")?.trim() ?: ""
+        ivBack.setOnClickListener { finish() }
 
-        Log.d("ParentAttendance", "Parent name from SharedPreferences: '$parentName'")
-
-        if (parentName.isNotEmpty()) {
-            fetchAttendance(parentName)
+        // Get parent email dynamically from intent
+        val parentEmail = intent.getStringExtra("parent_email")
+        if (!parentEmail.isNullOrEmpty()) {
+            fetchAttendance(parentEmail)
         } else {
-            tvEmpty.text = "Parent name not found"
-            tvEmpty.visibility = View.VISIBLE
-            Toast.makeText(this, "Parent name not provided", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Parent email not found", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun fetchAttendance(parentName: String) {
+    private fun fetchAttendance(email: String) {
+        val logging = HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+        val client = OkHttpClient.Builder().addInterceptor(logging).build()
+
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://grlp1vvl-3000.inc1.devtunnels.ms/") // Base URL only
+            .baseUrl("https://grlp1vvl-3000.inc1.devtunnels.ms/")
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         val api = retrofit.create(ApiService::class.java)
-
-        Log.d("ParentAttendance", "Calling API for parent: $parentName")
-
-        api.getParentAttendance(parentName).enqueue(object : Callback<List<ChildAttendance>> {
-            override fun onResponse(
-                call: Call<List<ChildAttendance>>,
-                response: Response<List<ChildAttendance>>
-            ) {
-                Log.d("ParentAttendance", "Response code: ${response.code()}")
-                Log.d("ParentAttendance", "Response body: ${response.body()}")
-
-                if (response.isSuccessful) {
-                    val data = response.body()
-                    if (!data.isNullOrEmpty()) {
-                        studentList.clear()
-                        studentList.addAll(data)
-                        adapter.notifyDataSetChanged()
-                        tvEmpty.visibility = View.GONE
-                    } else {
-                        tvEmpty.text = "No attendance data found"
-                        tvEmpty.visibility = View.VISIBLE
-                    }
+        api.getAttendance(email).enqueue(object : Callback<Attendance> {
+            override fun onResponse(call: Call<Attendance>, response: Response<Attendance>) {
+                if (response.isSuccessful && response.body() != null) {
+                    val data = response.body()!!
+                    updateUI(data)
                 } else {
-                    tvEmpty.text = "Failed to fetch attendance"
-                    tvEmpty.visibility = View.VISIBLE
-                    Log.e("ParentAttendance", "API error: ${response.errorBody()?.string()}")
+                    Toast.makeText(this@ParentAttendanceActivity, "No attendance data found", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            override fun onFailure(call: Call<List<ChildAttendance>>, t: Throwable) {
-                tvEmpty.text = "Error: ${t.message}"
-                tvEmpty.visibility = View.VISIBLE
-                Log.e("ParentAttendance", "API call failed", t)
+            override fun onFailure(call: Call<Attendance>, t: Throwable) {
+                Toast.makeText(this@ParentAttendanceActivity, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun updateUI(data: Attendance) {
+        tvStudentName.text = data.Full_Name
+        tvClassName.text = "Class: ${data.Class}"
+        tvTotalClasses.text = "Total Classes: ${data.total}"
+        tvAttendedClasses.text = "Attended Classes: ${data.classes_present}"
+        tvAbsentClasses.text = "Absent Classes: ${data.classes_absent}"
+
+        val percent = data.percentage.toFloat().toInt()
+        percentText.text = "${data.percentage}%"
+
+        // Animate progress bar
+        val animator = ObjectAnimator.ofInt(progressBar, "progress", 0, percent)
+        animator.duration = 1000
+        animator.start()
+
+        // Change color dynamically
+        val color = if (percent >= 70) Color.GREEN else Color.RED
+        progressBar.progressDrawable.setColorFilter(color, android.graphics.PorterDuff.Mode.SRC_IN)
     }
 }

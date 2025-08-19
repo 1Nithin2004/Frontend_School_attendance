@@ -48,18 +48,17 @@ class ParentHomepageActivity : AppCompatActivity() {
         // Attendance card click
         // In ParentHomepageActivity
         binding.attendanceCard.setOnClickListener {
-            // Get parent name from SharedPreferences
             val sharedPrefs = getSharedPreferences("login", Context.MODE_PRIVATE)
-            val parentName = sharedPrefs.getString("parent_name", "") ?: ""
+            val parentEmail = sharedPrefs.getString("parent_email", "") ?: ""
 
-            if (parentName.isNotEmpty()) {
-                // Pass parentName to ParentAttendanceActivity
+            if (parentEmail.isNotEmpty()) {
                 val intent = Intent(this, ParentAttendanceActivity::class.java)
-                intent.putExtra("PARENT_NAME", parentName)
+                intent.putExtra("parent_email", parentEmail)
                 startActivity(intent)
             } else {
-                Toast.makeText(this, "Parent name not found", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Parent email not found", Toast.LENGTH_SHORT).show()
             }
+
         }
 
 

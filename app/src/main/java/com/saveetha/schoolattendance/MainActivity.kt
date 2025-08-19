@@ -115,13 +115,17 @@ class MainActivity : AppCompatActivity() {
                                 startActivity(teacherHomepageIntent)
                                 finish()
                             }else if(userType=="Parent") {
+                                val userEmail = response.body()!!.user.email_address
+                                edit.putString("parent_email", userEmail).apply()
+                                edit.putString("parent_name", userFullName).apply()
+                                edit.putInt("user_id", userId).apply()
+
                                 val ParentHomepage = Intent(this@MainActivity, ParentHomepageActivity::class.java).apply {
-//                                    putExtra("USERNAME", userNameFromResponse)
                                     putExtra("USER_ID", userId.toString())
                                 }
                                 startActivity(ParentHomepage)
-                                finish() // Close MainActivity after successful login
-                            } else if (userType == "admin") {
+                                finish()
+                     } else if (userType == "admin") {
                                 val adminIntent = Intent(this@MainActivity, AdminHomeActivity::class.java).apply {
                                     putExtra("ADMIN_username", username)
                                 }

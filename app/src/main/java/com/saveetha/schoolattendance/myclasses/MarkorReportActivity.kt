@@ -21,22 +21,12 @@ class MarkorReportActivity : AppCompatActivity() {
         binding = ActivitySelectedclassBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val receivedClassName = intent.getStringExtra("class_name") ?: "No class"
-        binding.classNametextview.text = "Class $receivedClassName"
+        // Load class info and setup UI
+        handleIntent(intent)
 
         val backArrow = findViewById<ImageView>(R.id.backArrow)
         backArrow.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
-        }
-
-        val userType = intent.getStringExtra("user_type")
-
-        if (userType == "parent") {
-            // Parent can only view reports
-            showReportsOnly()
-        } else {
-            // Admin and Teacher can both mark and view
-            showMarkOrViewOptions()
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
@@ -52,21 +42,39 @@ class MarkorReportActivity : AppCompatActivity() {
                 WindowInsetsCompat.CONSUMED
             }
         }
+    }
 
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        handleIntent(intent)
+    }
+
+    // Centralized method to handle intent and setup UI
+    private fun handleIntent(intent: Intent) {
+        val receivedClassName = intent.getStringExtra("class_name") ?: "No class"
+        binding.classNametextview.text = "Class $receivedClassName"
+
+        val userType = intent.getStringExtra("user_type")
+        if (userType == "parent") {
+            showReportsOnly()
+        } else {
+            showMarkOrViewOptions()
+        }
+
+        // Set click listeners with updated class
         binding.clickbutton.setOnClickListener {
-            val intent = Intent(this, AttendanceTick::class.java)
-            intent.putExtra("class", receivedClassName)
-            startActivity(intent)
+            val attendanceIntent = Intent(this, AttendanceTick::class.java)
+            attendanceIntent.putExtra("class", receivedClassName)
+            startActivity(attendanceIntent)
         }
 
         binding.clickreport.setOnClickListener {
-            val intent = Intent(this, StudentReportActivity::class.java)
-            intent.putExtra("classId", receivedClassName)
-            startActivity(intent)
+            val reportIntent = Intent(this, StudentReportActivity::class.java)
+            reportIntent.putExtra("classId", receivedClassName)
+            startActivity(reportIntent)
         }
     }
 
-    // ✅ Move these outside onCreate()
     private fun showReportsOnly() {
         binding.cardMarkAttendance.visibility = View.GONE
         binding.cardViewReports.visibility = View.VISIBLE
