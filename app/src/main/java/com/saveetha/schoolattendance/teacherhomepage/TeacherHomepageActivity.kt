@@ -64,6 +64,12 @@ class TeacherHomepageActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.view.setOnClickListener {
+            val intent = Intent(this, MyClassesActivity::class.java)
+            intent.putExtra("source", "edit_students")  // 👈 same way you did in AdminHomepage
+            intent.putExtra("user_type", "teacher")     // keep consistency
+            startActivity(intent)
+        }
         // Profile icon click
         binding.profileIcon.setOnClickListener {
             val intent = Intent(this, TeacherProfile::class.java)

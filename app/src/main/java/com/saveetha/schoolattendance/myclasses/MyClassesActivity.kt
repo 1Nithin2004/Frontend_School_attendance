@@ -65,7 +65,7 @@ class MyClassesActivity : AppCompatActivity() {
                             val className = data.class_name
 
                             when (sourceScreen) {
-                                "view_students" -> {
+                                "view_students", "edit_students" -> {
                                     val intent = Intent(this@MyClassesActivity, ViewStudentsActivity::class.java)
                                     intent.putExtra("class_name", className)
                                     startActivity(intent)
